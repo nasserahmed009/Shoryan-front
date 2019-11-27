@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.bold{
+    font-weight: bold;
+}
+.nomargin{
+    margin: 0px !important;
+}
+.nopadding{
+    padding: 0px !important;
+}
+.clear{
+    clear: both;
+}
+.overflowhidden{
+    overflow: hidden;
+}
+.flex{
+    display: flex;
+}
+.inline{
+    display: inline;
+}
+.verticalMiddle{
+    vertical-align: middle;
+}

@@ -3,9 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "@/Plugins/axios";
+
 import "materialize-css";
 import "materialize-css/sass/materialize.scss";
-
+import "@/assets/global.scss";
 Vue.config.productionTip = false;
 
 new Vue({
