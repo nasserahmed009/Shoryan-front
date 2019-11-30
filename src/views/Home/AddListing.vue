@@ -2,12 +2,17 @@
   <div>
     <div class="row">
       <div class="insert-image col s8 m4">
-        <p>Insert Image Form here</p>
+        <MultiImgViewer :imagesPaths="selectedImagesPaths" />
         <form action="#">
           <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
-              <input type="file" multiple />
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                @change="parseImgs($event)"
+              />
             </div>
             <div class="file-path-wrapper">
               <input
@@ -19,6 +24,7 @@
           </div>
         </form>
       </div>
+
       <div class="input-field col s12 m6">
         <form>
           <div class="input-field col s12">
@@ -62,10 +68,14 @@
 
 <script>
 export default {
+  components: {
+    MultiImgViewer: () => import("@/components/Home/MultiImageViewer")
+  },
   mounted() {
     $(document).ready(function() {
       $("select").formSelect();
       $(".datepicker").datepicker();
+      $(".materialboxed").materialbox();
     });
   },
   data() {
@@ -76,8 +86,27 @@ export default {
           name: "Drug1",
           id: 1
         }
-      ]
+      ],
+      selectedImagesPaths: []
     };
+  },
+  methods: {
+    parseImgs(event) {
+      let files = event.target.files;
+      if (files) {
+        let SelectedImagesPaths = [];
+
+        for (let i = 0; i < files.length; i++) {
+          let reader = new FileReader();
+          reader.readAsDataURL(files[i]);
+          reader.onload = function(e) {
+            SelectedImagesPaths.push(e.target.result);
+          };
+        }
+
+        this.selectedImagesPaths = SelectedImagesPaths;
+      }
+    }
   }
 };
 </script>
