@@ -31,6 +31,12 @@ const HomeRoutes = [
         component: () => import("@/views/Home/AddListing"),
         name: "AddListing",
         meta: { title: "Shoryan - AddListing" }
+      },
+      {
+        path: "/AccountRegisteration",
+        component: () => import("@/views/Home/AccountRegisteration"),
+        name: "AccountRegisteration",
+        meta: { title: "Shoryan - AccountRegisteration" }
       }
     ]
   }

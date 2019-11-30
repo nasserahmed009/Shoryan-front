@@ -50,6 +50,7 @@ export default {
 <style scoped>
 .imageBox {
   margin-top: 25px;
+  /* border: 1px groove #555555; */
 }
 .miniImageBoxes img {
   width: 50px;
