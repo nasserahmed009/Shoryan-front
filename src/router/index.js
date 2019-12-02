@@ -39,6 +39,18 @@ const HomeRoutes = [
         meta: { title: "Shoryan - AccountRegisteration" }
       }
     ]
+  },
+  {
+    path: "/Panel",
+    component: () => import("@/views/PanelLayout"),
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/Panel/Dashboard"),
+        name: "Dashboard",
+        meta: { title: "Panel - Dashboard" }
+      }
+    ]
   }
 ];
 
