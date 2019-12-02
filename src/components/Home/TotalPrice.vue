@@ -1,5 +1,5 @@
 <template>
-  <div class="grey">
+  <div class="grey lighten-1">
     <div class="center" style="padding:50px">
       <p>
         subtotal

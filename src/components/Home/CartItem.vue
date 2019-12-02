@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="row container"> -->
-  <div class="col s12 grey center">
+  <div class="col s12 grey lighten-1 center">
     <div class="col s2 bar">
       <i class="medium material-icons">remove_circle</i>
     </div>

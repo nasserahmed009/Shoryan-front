@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grey" style="padding:40px 0px">
+    <div class="grey lighten-1" style="padding:40px 0px">
       <div class="container">
         <h3 class="HeaderText white-text nomargin">My Cart</h3>
       </div>
