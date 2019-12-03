@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row" style="padding-left:32%; margin-top:10%">
+    <div class="row" style="padding-left:32%; margin-top:5%">
       <p class=" text col s4 bold ">
         Upcoming Orders
       </p>
