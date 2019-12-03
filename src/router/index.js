@@ -37,6 +37,30 @@ const HomeRoutes = [
         component: () => import("@/views/Home/AccountRegisteration"),
         name: "AccountRegisteration",
         meta: { title: "Shoryan - AccountRegisteration" }
+      },
+      {
+        path: "/MyCart",
+        component: () => import("@/views/Home/MyCart"),
+        name: "MyCart",
+        meta: { title: "Shoryan - MyCart" }
+      },
+      {
+        path: "/test",
+        component: () => import("@/components/Home/PastOrdersCard"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
+      },
+      {
+        path: "/upcomingOrders",
+        component: () => import("@/views/Home/UpcomingOrders"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
+      },
+      {
+        path: "/PastOrders",
+        component: () => import("@/views/Home/PastOrders"),
+        name: "PastOrders",
+        meta: { title: "Shoryan - PastOrders" }
       }
     ]
   },
