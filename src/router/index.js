@@ -43,6 +43,18 @@ const HomeRoutes = [
         component: () => import("@/views/Home/MyCart"),
         name: "MyCart",
         meta: { title: "Shoryan - MyCart" }
+      },
+      {
+        path: "/test",
+        component: () => import("@/components/Home/UpcomingOrderCard"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
+      },
+      {
+        path: "/upcomingOrders",
+        component: () => import("@/views/Home/UpcomingOrders"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
       }
     ]
   },
