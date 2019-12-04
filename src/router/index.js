@@ -49,6 +49,36 @@ const HomeRoutes = [
         component: () => import("@/views/Home/ActiveListings.vue"),
         name: "ActiveListings",
         meta: { title: "Shoryan - ActiveListings" }
+      },
+      {
+        path: "/MyCart",
+        component: () => import("@/views/Home/MyCart"),
+        name: "MyCart",
+        meta: { title: "Shoryan - MyCart" }
+      },
+      {
+        path: "/test",
+        component: () => import("@/components/Home/ProductViewCard"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
+      },
+      {
+        path: "/upcomingOrders",
+        component: () => import("@/views/Home/UpcomingOrders"),
+        name: "test",
+        meta: { title: "Shoryan - Test" }
+      },
+      {
+        path: "/PastOrders",
+        component: () => import("@/views/Home/PastOrders"),
+        name: "PastOrders",
+        meta: { title: "Shoryan - PastOrders" }
+      },
+      {
+        path: "/ProductView",
+        component: () => import("@/views/Home/ProductView"),
+        name: "ProductView",
+        meta: { title: "Shoryan - ProductView" }
       }
     ]
   },
@@ -61,6 +91,12 @@ const HomeRoutes = [
         component: () => import("@/views/Panel/Dashboard"),
         name: "Dashboard",
         meta: { title: "Panel - Dashboard" }
+      },
+      {
+        path: "users",
+        component: () => import("@/views/Panel/ListUsers"),
+        name: "listUsers",
+        meta: { title: "Panel - Users " }
       }
     ]
   }

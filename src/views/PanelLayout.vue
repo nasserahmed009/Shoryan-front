@@ -29,7 +29,9 @@
         </router-link>
       </li>
       <li>
-        <a href="#!"><i class="material-icons">people</i>Users</a>
+        <router-link :to="{ name: 'SingleItem' }">
+          <i class="material-icons">people</i>Users
+        </router-link>
       </li>
       <li>
         <a href="#!"><i class="material-icons">view_list</i>Items</a>
