@@ -38,6 +38,10 @@ export default {
       required: true
     }
   },
+  updated() {
+    $(".materialboxed").materialbox();
+    $(".material-placeholder").css("display", "inline-block");
+  },
   mounted() {
     $(document).ready(function() {
       $("select").formSelect();
@@ -56,6 +60,6 @@ export default {
   width: 50px;
   margin-top: 5px;
   margin-right: 8px;
-  display: inline-block;
+  display: inline-block !important;
 }
 </style>

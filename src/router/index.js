@@ -37,6 +37,18 @@ const HomeRoutes = [
         component: () => import("@/views/Home/AccountRegisteration"),
         name: "AccountRegisteration",
         meta: { title: "Shoryan - AccountRegisteration" }
+      },
+      {
+        path: "/UsersLogin",
+        component: () => import("@/views/Home/UsersLogin.vue"),
+        name: "UsersLogin",
+        meta: { title: "Shoryan - UsersLogin" }
+      },
+      {
+        path: "/ActiveListings",
+        component: () => import("@/views/Home/ActiveListings.vue"),
+        name: "ActiveListings",
+        meta: { title: "Shoryan - ActiveListings" }
       }
     ]
   },
