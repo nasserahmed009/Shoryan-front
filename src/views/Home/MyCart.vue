@@ -6,13 +6,15 @@
       </div>
     </div>
     <div class="row" style="margin:20px 0px">
-      <div class="col s8">
-        <div>
-          <cartItem v-for="i in 4" :key="i" />
+      <div class="container">
+        <div class="col s8">
+          <div>
+            <cartItem v-for="i in 4" :key="i" class="cartItem" />
+          </div>
         </div>
-      </div>
-      <div class="col s4">
-        <totalPrice />
+        <div class="col s4">
+          <totalPrice />
+        </div>
       </div>
     </div>
   </div>
@@ -26,3 +28,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.cartItem {
+  margin: 10px 0px;
+}
+</style>
