@@ -63,8 +63,8 @@ const HomeRoutes = [
         meta: { title: "Shoryan - Test" }
       },
       {
-        path: "/upcomingOrders",
-        component: () => import("@/views/Home/UpcomingOrders"),
+        path: "/ProfileInfo",
+        component: () => import("@/components/Home/ProfileInfoSideBar"),
         name: "test",
         meta: { title: "Shoryan - Test" }
       },
@@ -79,6 +79,12 @@ const HomeRoutes = [
         component: () => import("@/views/Home/ProductView"),
         name: "ProductView",
         meta: { title: "Shoryan - ProductView" }
+      },
+      {
+        path: "/UpcomingOrders",
+        component: () => import("@/views/Home/UpcomingOrders"),
+        name: "UpcomingOrders",
+        meta: { title: "Shoryan - UpcomingOrders" }
       }
     ]
   },

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="row" style="padding-left:32%; margin-top:5%">
+  <div class="container">
+    <div class="row" style="padding-left:42%; margin-top:5%">
       <p class=" text col s4 ">
         Upcoming Orders
       </p>
@@ -11,10 +11,12 @@
         Account Balance
       </p>
     </div>
-    <hr style="margin:10px 10% 10px 32.5% " />
-    <div class="row container" style="padding-top:10px">
-      <div class="col s3"></div>
-      <div class="col s9">
+    <hr style="margin:10px 0% 10px 42% " />
+    <div class="row" style="padding-top:10px">
+      <div class="col s5">
+        <ProfileInfo />
+      </div>
+      <div class="col s7">
         <PastOrdersCard v-for="i in 3" :key="i" />
       </div>
     </div>
@@ -24,7 +26,8 @@
 <script>
 export default {
   components: {
-    PastOrdersCard: () => import("@/components/Home/PastOrdersCard")
+    PastOrdersCard: () => import("@/components/Home/PastOrdersCard"),
+    ProfileInfo: () => import("@/components/Home/ProfileInfoSideBar")
   }
 };
 </script>
