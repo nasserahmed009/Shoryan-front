@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="grey lighten-1" style="padding:40px 0px">
+    <div class="grey lighten-3" style="padding:40px 0px">
       <div class="container">
-        <h3 class="HeaderText white-text nomargin">My Cart</h3>
+        <h3 class="bold nomargin">My Cart</h3>
       </div>
     </div>
     <div class="row" style="margin:20px 0px">

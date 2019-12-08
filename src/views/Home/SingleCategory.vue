@@ -1,36 +1,37 @@
 <template>
   <div>
     <div class="pageHeader grey lighten-2">
-      <div class="col s12 grey-text">
+      <div class="container">
         <a href="#!" class="breadcrumb grey-text">First</a>
         <a href="#!" class="breadcrumb grey-text">Second</a>
         <a href="#!" class="breadcrumb grey-text">Third</a>
+
+        <h3 class="bold">
+          Category Name
+        </h3>
+      </div>
+    </div>
+    <div class="container">
+      <h4>Drugs in this category</h4>
+      <div class="row">
+        <ItemCard v-for="i in 15" :key="i" />
       </div>
 
-      <h3 class="bold">
-        Category Name
-      </h3>
+      <ul class="pagination right">
+        <li class="disabled">
+          <a href="#!"><i class="material-icons">chevron_left</i></a>
+        </li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect">
+          <a href="#!"><i class="material-icons">chevron_right</i></a>
+        </li>
+      </ul>
+      <div class="clear"></div>
     </div>
-
-    <h4>Drugs in this category</h4>
-    <div class="row">
-      <ItemCard v-for="i in 15" :key="i" />
-    </div>
-
-    <ul class="pagination right">
-      <li class="disabled">
-        <a href="#!"><i class="material-icons">chevron_left</i></a>
-      </li>
-      <li class="active"><a href="#!">1</a></li>
-      <li class="waves-effect"><a href="#!">2</a></li>
-      <li class="waves-effect"><a href="#!">3</a></li>
-      <li class="waves-effect"><a href="#!">4</a></li>
-      <li class="waves-effect"><a href="#!">5</a></li>
-      <li class="waves-effect">
-        <a href="#!"><i class="material-icons">chevron_right</i></a>
-      </li>
-    </ul>
-    <div class="clear"></div>
   </div>
 </template>
 
@@ -45,7 +46,6 @@ export default {
 <style lang="scss" scoped>
 .pageHeader {
   padding: 20px;
-  margin: 20px 0px;
 }
 
 .breadcrumb:before {

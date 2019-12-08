@@ -7,9 +7,11 @@
       <li class="divider"></li>
       <li><a href="#!">three</a></li>
     </ul>
-    <nav>
+    <nav class="blue lighten-1">
       <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo bold">Shoryan</a>
+        <router-link :to="{ name: 'Index' }">
+          <img src="@/assets/images/shoryanLogo.png" alt="" class="logo" />
+        </router-link>
 
         <ul class="right hide-on-med-and-down">
           <li><a href="sass.html">Categories</a></li>
@@ -25,3 +27,9 @@
     </nav>
   </div>
 </template>
+<style lang="scss" scoped>
+.logo {
+  height: 35px;
+  vertical-align: middle;
+}
+</style>

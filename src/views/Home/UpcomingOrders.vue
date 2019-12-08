@@ -27,7 +27,7 @@
 export default {
   components: {
     upcomingOrdersCard: () => import("@/components/Home/UpcomingOrderCard"),
-    ProfileInfo: () => import("@/components/Home/ProfileInfoSideBar")
+    ProfileInfo: () => import("@/components/Home/Profile")
   }
 };
 </script>

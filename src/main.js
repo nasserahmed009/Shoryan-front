@@ -4,8 +4,9 @@ import router from "./router";
 import store from "./store";
 import "@/Plugins/axios";
 
-import "materialize-css";
 import "materialize-css/sass/materialize.scss";
+// import "@/assets/styles/variables.scss";
+import "materialize-css";
 import "@/assets/global.scss";
 Vue.config.productionTip = false;
 

@@ -17,8 +17,8 @@
 export default {
   mounted() {
     $(".carousel").carousel({
-      fullWidth: true,
-      indicators: true
+      fullWidth: true
+      // indicators: true
     });
   }
 };
@@ -29,6 +29,6 @@ export default {
   width: 100%;
 }
 .carousel {
-  height: 500px;
+  height: 500px !important;
 }
 </style>

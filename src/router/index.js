@@ -63,8 +63,8 @@ const HomeRoutes = [
         meta: { title: "Shoryan - Test" }
       },
       {
-        path: "/ProfileInfo",
-        component: () => import("@/components/Home/ProfileInfoSideBar"),
+        path: "/Profile",
+        component: () => import("@/components/Home/Profile"),
         name: "test",
         meta: { title: "Shoryan - Test" }
       },

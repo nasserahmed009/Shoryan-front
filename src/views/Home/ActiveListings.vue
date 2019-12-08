@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col s4">
-        <ProfileInfoSideBar />
+        <Profile />
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
   components: {
-    ProfileInfoSideBar: () => import("@/components/Home/ProfileInfoSideBar")
+    Profile: () => import("@/components/Home/Profile")
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <profileInfoSideBar/>
+  <Profile/>
 </template>
 
 <script>
