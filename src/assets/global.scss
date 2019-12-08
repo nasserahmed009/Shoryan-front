@@ -1,3 +1,10 @@
+
+@import "materialize-css/sass/components/_color-variables";
+$primary-color: #42a5f5;
+$secondary-color: color("blue", "lighten-1") ;
+@import "materialize-css/sass/materialize";
+
+
 *{
     margin: 0;
     padding: 0;

@@ -7,7 +7,7 @@
       <li class="divider"></li>
       <li><a href="#!">three</a></li>
     </ul>
-    <nav class="blue lighten-1">
+    <nav class="">
       <div class="nav-wrapper container">
         <router-link :to="{ name: 'Index' }">
           <img src="@/assets/images/shoryanLogo.png" alt="" class="logo" />
@@ -31,5 +31,9 @@
 .logo {
   height: 35px;
   vertical-align: middle;
+}
+nav {
+  position: sticky;
+  top: 0px;
 }
 </style>
