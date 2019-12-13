@@ -33,15 +33,15 @@ const HomeRoutes = [
         meta: { title: "Shoryan - AddListing" }
       },
       {
-        path: "/AccountRegisteration",
+        path: "/Register",
         component: () => import("@/views/Home/AccountRegisteration"),
-        name: "AccountRegisteration",
+        name: "Register",
         meta: { title: "Shoryan - AccountRegisteration" }
       },
       {
-        path: "/UsersLogin",
+        path: "/Login",
         component: () => import("@/views/Home/UsersLogin.vue"),
-        name: "UsersLogin",
+        name: "Login",
         meta: { title: "Shoryan - UsersLogin" }
       },
       {
@@ -65,7 +65,7 @@ const HomeRoutes = [
       {
         path: "/Profile",
         component: () => import("@/components/Home/Profile"),
-        name: "test",
+        name: "Profile",
         meta: { title: "Shoryan - Test" }
       },
       {
