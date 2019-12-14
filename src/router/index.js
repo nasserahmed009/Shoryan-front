@@ -103,6 +103,12 @@ const HomeRoutes = [
         component: () => import("@/views/Panel/ListUsers"),
         name: "listUsers",
         meta: { title: "Panel - Users " }
+      },
+      {
+        path: "items",
+        component: () => import("@/views/Panel/ListItems"),
+        name: "ListItems",
+        meta: { title: "Panel - Items " }
       }
     ]
   }

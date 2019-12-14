@@ -23,12 +23,62 @@ export default {
         {
           id: 3,
           name: "hamda",
-          location: "talbya"
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
+        },
+        {
+          id: 3,
+          name: "hamda",
+          location: "talbya",
+          email: "hamada@gmail.com"
         },
         {
           id: 4,
           name: "shomma",
-          location: "matba3a"
+          location: "matba3a",
+          email: "shomma@gmail.com"
         }
       ],
       tableStyles: tableStyles,
@@ -40,6 +90,10 @@ export default {
         {
           label: "name",
           name: "name"
+        },
+        {
+          label: "email",
+          name: "email"
         },
         {
           label: "location",

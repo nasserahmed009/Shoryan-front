@@ -29,7 +29,7 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'SingleItem' }">
+        <router-link :to="{ name: 'listUsers' }">
           <i class="material-icons">people</i>Users
         </router-link>
       </li>

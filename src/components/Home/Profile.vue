@@ -32,16 +32,18 @@
       <div class="container">
         <div class="row">
           <div class="col s12">
-            <ul class="tabs">
-              <li class="tab col s3">
-                <a class="active" href="#test1">Upcomming orders</a>
-              </li>
-              <li class="tab col s3">
-                <a class="" href="#test2">Past orders</a>
-              </li>
+            <div v-if="courier">
+              <ul class="tabs">
+                <li class="tab col s3">
+                  <a class="active" href="#test1">Upcomming orders</a>
+                </li>
+                <li class="tab col s3">
+                  <a class="" href="#test2">Past orders</a>
+                </li>
 
-              <li class="tab col s3"><a href="#test4">Account balance</a></li>
-            </ul>
+                <li class="tab col s3"><a href="#test4">Account balance</a></li>
+              </ul>
+            </div>
           </div>
           <div id="test1" class="col s12">
             <cartItem v-for="i in 6" :key="i" class="cartItem" />
@@ -65,7 +67,8 @@ export default {
   },
   data: function() {
     return {
-      join_date: "25 jan 2018"
+      join_date: "25 jan 2018",
+      courier: true
     };
   },
   components: {
