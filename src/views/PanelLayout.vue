@@ -1,14 +1,14 @@
 <template>
   <div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
-      <li class="grey darken-3">
-        <h4 class="bold white-text nomargin">Shoryan</h4>
+      <li class="blue ">
+        <img src="@/assets/images/shoryanLogo.png" alt="" class="shoryanLogo" />
       </li>
       <li class="userSection">
         <div class="user-view">
           <div class="background">
             <img
-              src="https://www.oxygenna.com/wp-content/uploads/2015/11/18.jpg"
+              src="https://besthqwallpapers.com/Uploads/22-2-2018/41875/thumb2-material-design-gray-and-blue-lollipop-lines-art.jpg"
             />
           </div>
           <a href="#user">
@@ -34,10 +34,14 @@
         </router-link>
       </li>
       <li>
-        <a href="#!"><i class="material-icons">view_list</i>Items</a>
+        <router-link :to="{ name: 'ListItems' }">
+          <i class="material-icons">view_list</i>Items
+        </router-link>
       </li>
       <li>
-        <a href="#!"><i class="material-icons">warning</i>Complaints</a>
+        <router-link :to="{ name: 'Complaints' }">
+          <i class="material-icons">warning</i>Complaints
+        </router-link>
       </li>
     </ul>
 
@@ -70,6 +74,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.shoryanLogo {
+  height: 30px;
+  vertical-align: middle;
+}
+
 .panelMainView {
   padding-left: 300px;
 }
@@ -85,7 +94,7 @@ nav {
   z-index: 997;
 }
 .sidenav li:first-of-type {
-  padding: 15px 10px;
+  padding: 8px 10px;
 }
 .userAvatar {
   object-fit: cover;
@@ -97,5 +106,11 @@ nav {
 }
 .viewTitle {
   padding: 19px 0px;
+}
+.router-link-exact-active {
+  background: #2196f3;
+}
+.background img {
+  width: 100%;
 }
 </style>
