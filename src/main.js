@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import "@/Plugins/axios";
 
+import "@/assets/styles/variables.scss";
 import "materialize-css/sass/materialize.scss";
 // import "materialize-css/sass/components/_variables.scss";
 // import "@/assets/styles/variables.scss";

@@ -28,12 +28,13 @@
   </div>
   <!-- </div> -->
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .bar {
   margin: 30px 0px;
 }
 .cartItemContainer {
   justify-content: space-around;
+  border-radius: 30px;
 }
 .iconContainer {
   width: 60px;

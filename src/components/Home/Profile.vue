@@ -35,21 +35,25 @@
             <div v-if="courier">
               <ul class="tabs">
                 <li class="tab col s3">
-                  <a class="active" href="#test1">Upcomming orders</a>
+                  <a class="active" href="#test2">Past orders</a>
                 </li>
                 <li class="tab col s3">
-                  <a class="" href="#test2">Past orders</a>
+                  <a href="#test1">Upcomming orders</a>
                 </li>
 
                 <li class="tab col s3"><a href="#test4">Account balance</a></li>
               </ul>
             </div>
           </div>
-          <div id="test1" class="col s12">
-            <cartItem v-for="i in 6" :key="i" class="cartItem" />
-            <p>hello</p>
+
+          <div id="test2" class="col s12">
+            <order class="order" />
+            <order class="order" />
+            <order class="order" />
           </div>
-          <div id="test2" class="col s12">Test 2</div>
+          <div id="test1" class="col s12">
+            <order class="order" />
+          </div>
           <div id="test4" class="col s12">Test 4</div>
         </div>
       </div>
@@ -62,7 +66,7 @@ export default {
   mounted() {
     $(document).ready(function() {
       $("select").formSelect();
-      $(".tabs").tabs({});
+      $(".tabs").tabs();
     });
   },
   data: function() {
@@ -72,7 +76,8 @@ export default {
     };
   },
   components: {
-    cartItem: () => import("@/components/Home/CartItem")
+    // cartItem: () => import("@/components/Home/CartItem"),
+    order: () => import("@/components/Home/Order")
   }
 };
 </script>
@@ -89,5 +94,8 @@ export default {
 }
 .cartItem {
   margin: 15px 0px;
+}
+.order {
+  margin: 10px 0px;
 }
 </style>
