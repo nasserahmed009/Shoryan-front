@@ -4,7 +4,9 @@
     <div class="container">
       <h4 class="bold">Most ordered products</h4>
       <div class="row">
-        <ItemCard v-for="i in 4" :key="i" />
+        <div class="col m3 s12" v-for="i in 4" :key="i">
+          <ItemCard />
+        </div>
       </div>
 
       <h4 class="bold">Categories</h4>

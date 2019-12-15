@@ -43,18 +43,37 @@
 
                 <li class="tab col s3"><a href="#test4">Account balance</a></li>
               </ul>
+              <div id="test2" class="col s12">
+                <order class="order" />
+                <order class="order" />
+                <order class="order" />
+              </div>
+              <div id="test1" class="col s12">
+                <order class="order" />
+              </div>
+              <div id="test4" class="col s12">Test 4</div>
+            </div>
+            <div v-else>
+              <ul class="tabs">
+                <li class="tab col s3">
+                  <a class="active" href="#test2">Active Listings</a>
+                </li>
+                <li class="tab col s3">
+                  <a href="#test1">past orders</a>
+                </li>
+              </ul>
+              <div id="test2" class="col s12">
+                <div class="row">
+                  <div class="col m4 s12" v-for="i in 10" :key="i">
+                    <ItemCard />
+                  </div>
+                </div>
+              </div>
+              <div id="test1" class="col s12">
+                <order class="order" />
+              </div>
             </div>
           </div>
-
-          <div id="test2" class="col s12">
-            <order class="order" />
-            <order class="order" />
-            <order class="order" />
-          </div>
-          <div id="test1" class="col s12">
-            <order class="order" />
-          </div>
-          <div id="test4" class="col s12">Test 4</div>
         </div>
       </div>
     </div>
@@ -72,11 +91,11 @@ export default {
   data: function() {
     return {
       join_date: "25 jan 2018",
-      courier: true
+      courier: false
     };
   },
   components: {
-    // cartItem: () => import("@/components/Home/CartItem"),
+    ItemCard: () => import("@/components/Home/ItemCard"),
     order: () => import("@/components/Home/Order")
   }
 };
