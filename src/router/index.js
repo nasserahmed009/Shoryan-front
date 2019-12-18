@@ -18,6 +18,7 @@ const HomeRoutes = [
         path: "category/:categoryId",
         component: () => import("@/views/Home/SingleCategory"),
         name: "SingleCategory",
+        props: true,
         meta: { title: "Shoryan - SingleCategory" }
       },
       {
