@@ -57,12 +57,6 @@ const HomeRoutes = [
         meta: { title: "Shoryan - MyCart" }
       },
       {
-        path: "/test",
-        component: () => import("@/components/Home/ProductViewCard"),
-        name: "test",
-        meta: { title: "Shoryan - Test" }
-      },
-      {
         path: "/Profile",
         component: () => import("@/components/Home/Profile"),
         name: "Profile",

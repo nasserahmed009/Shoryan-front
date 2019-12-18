@@ -8,7 +8,10 @@
         />
       </div>
       <div class="card-content">
-        <h5>Drug Name</h5>
+        <router-link :to="{ name: 'SingleItem', params: { itemId: 1 } }">
+          <h5>Drug Name</h5>
+        </router-link>
+
         <p>
           I am a very simple card. I am good at containing small bits of
           information. I am convenient because I require little markup to use

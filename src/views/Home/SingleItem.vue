@@ -54,6 +54,21 @@
           </div>
         </div>
       </div>
+
+      <h3 class="bold col s10 nomargin" style="color=black">
+        Sellers
+      </h3>
+
+      <SellerCard v-for="i in 6" :key="i" class="col s6" />
+
+      <h3 class="bold col s10 nomargin" style="color=black">
+        Similar Products
+      </h3>
+      <div class="row">
+        <div class="col m3 s12" v-for="i in 4" :key="i">
+          <ItemCard />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,3 +90,11 @@
   margin: 0px 10px;
 }
 </style>
+<script>
+export default {
+  components: {
+    SellerCard: () => import("@/components/Home/SellerCard"),
+    ItemCard: () => import("@/components/Home/ItemCard")
+  }
+};
+</script>
