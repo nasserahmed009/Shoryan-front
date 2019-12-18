@@ -8,15 +8,13 @@
         />
       </div>
       <div class="card-content">
-        <router-link :to="{ name: 'SingleItem', params: { itemId: 1 } }">
-          <h5>Drug Name</h5>
+        <router-link :to="{ name: 'SingleItem', params: { itemId: item.id } }">
+          <h5>Drug name</h5>
         </router-link>
 
-        <p>
-          I am a very simple card. I am good at containing small bits of
-          information. I am convenient because I require little markup to use
-          effectively.
-        </p>
+        <p><b>Shreets : </b> {{ item.shreets }}</p>
+        <p><b>Elbas : </b> {{ item.elbas }}</p>
+        <p><b>Price : </b> {{ item.price }}</p>
       </div>
       <div class="card-action">
         <a class="waves-effect waves-light btn"
@@ -27,3 +25,15 @@
   </div>
   <!-- </div> -->
 </template>
+
+<script>
+export default {
+  props: {
+    // the component expect to get an item date to be viewed
+    item: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>
