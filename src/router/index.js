@@ -47,6 +47,12 @@ const HomeRoutes = [
         meta: { title: "Shoryan - UsersLogin" }
       },
       {
+        path: "/Logout",
+        component: () => import("@/views/Home/Logout.vue"),
+        name: "Logout",
+        meta: { title: "Shoryan - Logout" }
+      },
+      {
         path: "/ActiveListings",
         component: () => import("@/views/Home/ActiveListings.vue"),
         name: "ActiveListings",

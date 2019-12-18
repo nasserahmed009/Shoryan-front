@@ -32,7 +32,7 @@
                 alt="userAvatar"
                 class="userAvatar"
               />
-              <span class="bold">John Doe</span>
+              <span class="bold">{{ loggedInUser.name }}</span>
             </a>
 
             <!-- Dropdown Structure -->
@@ -49,11 +49,8 @@
               </li>
               <li class="divider" tabindex="-1"></li>
               <li>
-                <a
-                  href="#!"
-                  class="red-text bold"
-                  @click.prevent="loggedIn = false"
-                  >Logout</a
+                <router-link :to="{ name: 'Logout' }" class="red-text bold"
+                  >Logout</router-link
                 >
               </li>
             </ul>
@@ -69,10 +66,18 @@ export default {
   mounted() {
     if (this.loggedIn) $(".dropdown-trigger").dropdown();
   },
-  data() {
-    return {
-      loggedIn: true
-    };
+  updated() {
+    if (this.loggedIn) $(".dropdown-trigger").dropdown();
+  },
+  computed: {
+    //return if a user is logged in or not
+    loggedIn() {
+      return this.$store.getters.loggedIn;
+    },
+    //retutn the logged in user
+    loggedInUser() {
+      return this.$store.state.user;
+    }
   }
 };
 </script>
