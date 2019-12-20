@@ -27,27 +27,50 @@
         </div>
 
         <div class="input-field col s12 m6">
-          <form>
+          <form @submit.prevent="addListing">
             <div class="input-field col s12">
-              <select>
+              <select v-model="drugid">
                 <option value="" disabled selected>Drugs</option>
-                <option v-for="drug in drugs" :key="drug.id">{{
-                  drug.name
-                }}</option>
+                <option
+                  v-for="drug in this.drugs"
+                  :key="drug.id"
+                  value="drug.id"
+                  >{{ drug.name }}</option
+                >
               </select>
             </div>
 
             <div class="input-field col s12">
-              <input type="text" class="datepicker" placeholder="Expiry Date" />
+              <input
+                type="text"
+                class="datepicker"
+                placeholder="Expiry Date"
+                :value="expiryDate"
+              />
+            </div>
+
+            <div class="input-field col s12">
+              <input
+                id="price"
+                type="number"
+                class="validate"
+                v-model="price"
+              />
+              <label for="price">Price</label>
             </div>
 
             <div class="input-field col s6">
-              <input id="shreet" type="number" class="validate" />
+              <input
+                id="shreet"
+                type="number"
+                class="validate"
+                v-model="shreet"
+              />
               <label for="shreet">Shreet</label>
             </div>
 
             <div class="input-field col s6">
-              <input id="elba" type="number" class="validate" />
+              <input id="elba" type="number" class="validate" v-model="elbas" />
               <label for="elba">3elba</label>
             </div>
 
@@ -74,25 +97,55 @@ export default {
     MultiImgViewer: () => import("@/components/Home/MultiImageViewer")
   },
   mounted() {
+    this.isLoading = true;
+    this.getDrugs();
+    this.isLoading = false;
+
+    $(".datepicker").datepicker({
+      onSelect: this.setExpiryDate
+    });
+
     $(document).ready(function() {
       $("select").formSelect();
-      $(".datepicker").datepicker();
       $(".materialboxed").materialbox();
     });
   },
   data() {
     return {
-      drugs: [
-        //should be seeded from api
-        {
-          name: "Drug1",
-          id: 1
-        }
-      ],
-      selectedImagesPaths: []
+      drugs: null,
+      selectedImagesPaths: [],
+      drugid: null,
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
+      expiryDate: null,
+      shreet: null,
+      elbas: null,
+      price: null
     };
   },
   methods: {
+    setExpiryDate(date) {
+      this.expiryDate = date;
+    },
+
+    async getDrugs() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}drugs`
+      );
+
+      this.drugs = response.data;
+      $("select").formSelect();
+    },
+    addListing() {
+      const listingData = {
+        drugId: this.drugid,
+        userid: this.userid,
+        expiryDate: this.expiryDate,
+        shreet: this.shreet,
+        elbas: this.elbas,
+        price: this.price
+      };
+      this.axios.post(`${this.$store.state.baseApiUrl}listings`, listingData);
+    },
     parseImgs(event) {
       let files = event.target.files;
       if (files) {
