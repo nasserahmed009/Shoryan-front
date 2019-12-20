@@ -61,9 +61,4 @@ export default {
 .pageHeader {
   padding: 20px;
 }
-
-.breadcrumb:before {
-  color: #9e9e9e;
-  vertical-align: middle;
-}
 </style>

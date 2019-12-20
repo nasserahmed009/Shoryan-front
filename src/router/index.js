@@ -78,6 +78,12 @@ const HomeRoutes = [
         meta: { title: "Shoryan - Test" }
       },
       {
+        path: "/Profile/Edit",
+        component: () => import("@/views/Home/EditProfileSettings"),
+        name: "EditProfile",
+        meta: { title: "Shoryan - Edit profile" }
+      },
+      {
         path: "/PastOrders",
         component: () => import("@/views/Home/PastOrders"),
         name: "PastOrders",

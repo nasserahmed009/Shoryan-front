@@ -110,7 +110,7 @@ export default {
 .homeLayout {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 231px;
+  padding-bottom: 261px;
 }
 
 .footer {
