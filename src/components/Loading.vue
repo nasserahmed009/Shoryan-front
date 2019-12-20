@@ -17,6 +17,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "Loading"
+};
+</script>
+
 <style lang="scss" scoped>
 .preloader {
   margin: 80px 0px;
