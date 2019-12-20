@@ -47,6 +47,7 @@ export default {
   methods: {
     //function that takes the item id as a parameter and add the item data in the component data
     async deleteCartItem() {
+      this.$emit("deleteCartItem", this.cartitem.listingId);
       this.axios.delete(
         `${this.$store.state.baseApiUrl}userCart/${this.userid}/${this.cartitem.listingId}`
       );

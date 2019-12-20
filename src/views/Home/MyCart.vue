@@ -14,6 +14,7 @@
               :key="cartitem.id"
               class="cartItem"
               :cartitem="cartitem"
+              v-on:deleteCartItem="deleteCartItem"
             />
           </div>
         </div>
@@ -49,6 +50,11 @@ export default {
     },
     emptyCart() {
       this.cartItems = [];
+    },
+    deleteCartItem(listingId) {
+      this.cartItems = this.cartItems.filter(
+        cartItem => cartItem.listingId != listingId
+      );
     }
   }
 };
