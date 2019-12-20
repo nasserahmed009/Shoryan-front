@@ -48,7 +48,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
 .bar {
   margin: 30px 0px;

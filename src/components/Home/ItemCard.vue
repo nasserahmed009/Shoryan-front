@@ -9,7 +9,7 @@
       </div>
       <div class="card-content">
         <router-link :to="{ name: 'SingleItem', params: { itemId: item.id } }">
-          <h5>Drug name</h5>
+          <h5>{{ item.name }}</h5>
         </router-link>
 
         <p><b>Shreets : </b> {{ item.shreets }}</p>
