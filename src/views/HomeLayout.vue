@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="homeLayout">
     <Navbar />
     <div>
       <!-- notifications -->
@@ -37,7 +37,7 @@
 
       <router-view></router-view>
     </div>
-    <Footer />
+    <Footer class="footer" />
   </div>
 </template>
 
@@ -105,5 +105,19 @@ export default {
 }
 .notification i {
   cursor: pointer;
+}
+
+.homeLayout {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 231px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 231px;
+  // margin-top: 100px;
 }
 </style>
