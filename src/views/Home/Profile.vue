@@ -17,6 +17,23 @@
           {{ user.address }}
         </h6>
         <h6>Joined {{ user.registrationDate }}</h6>
+        <div v-if="this.userType == 'Normal'">
+          <h6>Balance= {{ user.balance }}</h6>
+          <form @submit.prevent="redeem">
+            <div class="input-field col s5" style="margin-left:30%">
+              <input
+                id="code"
+                type="text"
+                class="validate"
+                v-model="giftCardCode"
+              />
+              <label class="center" for="subject">GiftCard Code</label>
+              <button type="submit" class="waves-effect waves-light btn right">
+                <i class="material-icons right">send</i>Redeem
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
       <button
         class="settings-button btn waves-effect waves-light right"
@@ -98,6 +115,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   mounted() {
     $(document).ready(function() {
@@ -116,11 +134,13 @@ export default {
   data: function() {
     return {
       userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
+      userType: this.$store.state.user.type,
       user: null,
       upcomingOrders: null,
       pastOrders: null,
       ActiveListings: null,
-      userPastOrders: null
+      userPastOrders: null,
+      giftCardCode: null
     };
   },
   components: {
@@ -165,6 +185,17 @@ export default {
 
       this.userPastOrders = response.data;
       console.log(this.userPastOrders);
+    },
+    async redeem() {
+      EventBus.$emit("clearNotifications"); // to clear any existing notifications
+      console.log(this.giftCardCode);
+      this.axios.put(
+        `${this.$store.state.baseApiUrl}GiftCards/` +
+          this.giftCardCode +
+          "/" +
+          this.$store.state.user.id
+      );
+      this.$router.go();
     }
   }
 };
