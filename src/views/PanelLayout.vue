@@ -48,6 +48,11 @@
           <i class="material-icons">warning</i>Complaints
         </router-link>
       </li>
+      <li>
+        <router-link :to="{ name: 'listGiftCards' }">
+          <i class="material-icons">card_giftcard</i>Gift cards
+        </router-link>
+      </li>
     </ul>
 
     <div class="panelMainView">
@@ -63,6 +68,7 @@
       </nav>
       <div class="container">
         <div class="row">
+          <Notifications />
           <router-view> </router-view>
         </div>
       </div>
@@ -71,9 +77,18 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+
 export default {
   mounted() {
     $(".sidenav").sidenav();
+  },
+  components: {
+    Notifications: () => import("@/components/Notifications")
+  },
+  beforeRouteUpdate(to, from, next) {
+    EventBus.$emit("clearNotifications");
+    next();
   }
 };
 </script>

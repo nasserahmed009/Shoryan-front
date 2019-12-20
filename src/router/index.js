@@ -113,10 +113,28 @@ const HomeRoutes = [
         meta: { title: "Panel - Drugs " }
       },
       {
+        path: "addDrug",
+        component: () => import("@/views/Panel/AddDrug"),
+        name: "addDrug",
+        meta: { title: "Panel - add drug " }
+      },
+      {
         path: "items",
         component: () => import("@/views/Panel/ListItems"),
         name: "ListItems",
         meta: { title: "Panel - Items " }
+      },
+      {
+        path: "giftCards",
+        component: () => import("@/views/Panel/ListGiftCards"),
+        name: "listGiftCards",
+        meta: { title: "Panel - list gift cards " }
+      },
+      {
+        path: "addGiftCard",
+        component: () => import("@/views/Panel/AddGiftCard"),
+        name: "addGiftCard",
+        meta: { title: "Panel - add gift card" }
       },
       {
         path: "complaints",
