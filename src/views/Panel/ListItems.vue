@@ -9,7 +9,11 @@
         </div>
       </form>
     </div>
-    <DataTable :header-fields="headerFields" :data="data" :css="tableStyles" />
+    <DataTable
+      :header-fields="headerFields"
+      :data="tableData"
+      :css="tableStyles"
+    />
   </div>
 </template>
 
@@ -17,9 +21,12 @@
 import { DataTable } from "v-datatable-light";
 import tableStyles from "@/assets/js/TableStyles";
 export default {
+  mounted() {
+    this.getAllItems();
+  },
   data() {
     return {
-      data: [
+      tableData: [
         {
           id: 1,
           drugName: "Antinal",
@@ -64,16 +71,16 @@ export default {
           name: "id"
         },
         {
-          label: "Drug name",
-          name: "drugName"
+          label: "Elbas",
+          name: "elbas"
         },
         {
-          label: "Seller",
-          name: "seller"
+          label: "Shreets",
+          name: "shreets"
         },
         {
-          label: "Quantity",
-          name: "quantity"
+          label: "price",
+          name: "price"
         }
       ]
     };
@@ -84,6 +91,12 @@ export default {
   methods: {
     search() {
       alert("search");
+    },
+    async getAllItems() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}listings/`
+      );
+      this.tableData = response.data; //add the listings in array in the table data to be viewed
     }
   }
 };
