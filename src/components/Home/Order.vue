@@ -11,7 +11,6 @@
 
     <div id="complaintModal" class="modal">
       <div class="modal-content">
-        <<<<<<< HEAD
         <h4>Add a complaint to order {{ Order.id }}</h4>
         <form @submit.prevent="Complain">
           <div class="input-field col s12">
@@ -23,14 +22,6 @@
             />
             <label for="subject">Subject</label>
           </div>
-          =======
-          <h4>Add a complaint to order #1234</h4>
-
-          <div class="input-field col s12">
-            <input id="subject" type="text" class="validate" />
-            <label for="subject">Subject</label>
-          </div>
-          >>>>>>> 81674bf5e30fe1be5e82567887a0b7b0a2d42988
 
           <div class="input-field col s12">
             <textarea
@@ -41,17 +32,10 @@
             <label for="complaintMessage">Textarea</label>
           </div>
 
-          <<<<<<< HEAD
           <button type="submit" class="waves-effect waves-light btn right">
             <i class="material-icons right">send</i>Add complaint
           </button>
         </form>
-        =======
-        <a type="submit" class="waves-effect waves-light btn right"
-          ><i class="material-icons right">send</i>Add complaint</a
-        >
-
-        >>>>>>> 81674bf5e30fe1be5e82567887a0b7b0a2d42988
         <div class="clear"></div>
       </div>
     </div>
