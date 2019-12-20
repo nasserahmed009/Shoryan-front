@@ -42,18 +42,21 @@
 
     <h6>
       <span class="bold"> Order number : </span>
-      #123989
+      {{ Order.id }}
     </h6>
     <h6>
       <span class="bold"> Order date : </span>
-      17 May 2019
+      {{ Order.orderDate }}
     </h6>
     <h6>
       <span class="bold"> Total price : </span>
-      500000 EGP
+      {{ totalOrderPrice }}
     </h6>
     <h6 class="bold">Order items :</h6>
-    <cartItem />
+
+    <div v-for="listing in listings" :key="listing.id">
+      <cartItem :Listing="listing" />
+    </div>
   </div>
 </template>
 
@@ -61,17 +64,41 @@
 export default {
   mounted() {
     $(".modal").modal();
+    this.getListingsInOrder();
   },
   updated() {
     $(".modal").modal();
   },
   data() {
     return {
-      orderState: "delivered"
+      orderState: "delivered",
+      listings: null
     };
   },
   components: {
-    cartItem: () => import("@/components/Home/CartItem")
+    cartItem: () => import("@/components/Home/PastOrdersCard")
+  },
+  props: {
+    // the component expect to get an drug data to be viewed
+    Order: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    totalOrderPrice() {
+      return (
+        this.Order.deliverPrice + this.Order.itemsPrice - this.Order.discount
+      );
+    }
+  },
+  methods: {
+    async getListingsInOrder() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}ListingsInOrder/` + this.Order.id
+      );
+      this.listings = response.data;
+    }
   }
 };
 </script>

@@ -21,7 +21,7 @@
       </p>
     </div>
     <div class=" bar">
-      <div class="iconContainer center">
+      <div class="iconContainer center" @click.prevent="deleteCartItem">
         <i class="material-icons">delete</i>
       </div>
     </div>
@@ -37,10 +37,17 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    //function that takes the item id as a parameter and add the item data in the component data
+    async deleteCartItem() {
+      this.axios.delete(
+        `${this.$store.state.baseApiUrl}userCart/${this.cartitem.drugId}/${this.cartitem.listingId}`
+      );
+    }
   }
 };
 </script>
-
 <style lang="scss" scoped>
 .bar {
   margin: 30px 0px;
