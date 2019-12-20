@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="col s4">
-          <totalPrice />
+          <totalPrice :cartItems="cartItems" v-on:emptyCart="emptyCart" />
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
-      cartItems: null
+      cartItems: []
     };
   },
   methods: {
@@ -46,6 +46,9 @@ export default {
         `${this.$store.state.baseApiUrl}userCart/${this.userid}`
       );
       this.cartItems = response.data;
+    },
+    emptyCart() {
+      this.cartItems = [];
     }
   }
 };

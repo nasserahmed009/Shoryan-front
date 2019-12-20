@@ -60,7 +60,7 @@ export default {
 }
 .cartItemContainer {
   justify-content: space-around;
-  border-radius: 30px;
+  border-radius: 5px;
 }
 .iconContainer {
   width: 60px;

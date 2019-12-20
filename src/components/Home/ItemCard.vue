@@ -70,6 +70,7 @@ export default {
           {}
         );
 
+        this.$store.dispatch("addCartListingId", this.item.id);
         this.addedToCart = true;
       } catch (err) {
         EventBus.$emit("errorNotification", "Error occured, try again later");

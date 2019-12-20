@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     baseApiUrl: "https://localhost:5001/api/",
-    user: JSON.parse(localStorage.getItem("user")) || null
+    user: JSON.parse(localStorage.getItem("user")) || null,
+    cartListingsIds: []
   },
   getters: {
     loggedIn(state) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setCartListingsIds(state, cartListingsIds) {
+      state.cartListingsIds = cartListingsIds;
     }
   },
   actions: {
@@ -29,6 +33,11 @@ export default new Vuex.Store({
     async logout({ commit }) {
       localStorage.removeItem("user");
       commit("setUser", null);
+    },
+    addCartListingId({ state, commit }, listingId) {
+      let cartListingsIds = state.cartListingsIds;
+      cartListingsIds.push(listingId);
+      commit("setCartListingsIds", cartListingsIds);
     }
   }
 });
