@@ -2,7 +2,10 @@
   <div>
     <div class="row">
       <div class="fixed-action-btn">
-        <router-link class="btn-floating btn-large" :to="{ name: 'addDrug' }">
+        <router-link
+          class="btn-floating btn-large"
+          :to="{ name: 'addGiftCard' }"
+        >
           <i class="large material-icons">add</i>
         </router-link>
       </div>
@@ -26,7 +29,7 @@
           class="btn-floating waves-effect waves-light tooltipped red"
           data-position="top"
           data-tooltip="Delete drug"
-          @click="deleteDrug(props.rowData.id, props.rowIndex)"
+          @click="deleteGiftCard(props.rowData.id, props.rowIndex)"
         >
           <i class="large material-icons">delete</i>
         </button>
@@ -54,21 +57,24 @@ export default {
           name: "id"
         },
         {
-          label: "Drug name",
-          name: "name"
+          label: "code",
+          name: "code"
         },
         {
-          label: "Official Price",
-          name: "officialPrice"
+          label: "value",
+          name: "value"
         },
         {
-          label: "effective substances",
-          name: "effectiveSubstances",
-          format: this.formatEffectiveSubstances
+          label: "expiration date",
+          name: "expiryDate"
         },
         {
-          label: "categories",
-          name: "categories"
+          label: "used",
+          name: "used"
+        },
+        {
+          label: "claiming user id",
+          name: "claimingUserId"
         },
         {
           label: "actions",
@@ -87,32 +93,22 @@ export default {
     },
     async getAllItems() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}drugs`
+        `${this.$store.state.baseApiUrl}GiftCards`
       );
       this.tableData = response.data; //add the listings in array in the table data to be viewed
     },
-    //take the array of effective substances and return a string with them
-    formatEffectiveSubstances(effectiveSubstancesArray) {
-      if (effectiveSubstancesArray.length == 0) return "Not defined";
 
-      let effectiveSubstances = "";
-      for (let effectiveSubstance of effectiveSubstancesArray) {
-        effectiveSubstances += " - " + effectiveSubstance;
-      }
-      return effectiveSubstances.trim().slice(1);
-    },
-
-    async deleteDrug(drugId, drugIndex) {
+    async deleteGiftCard(giftCardId, giftCardIndex) {
       try {
         //request to delete the drug
         await this.axios.delete(
-          `${this.$store.state.baseApiUrl}drugs/${drugId}`
+          `${this.$store.state.baseApiUrl}GiftCards/${giftCardId}`
         );
 
         //remove the drug from the component
-        this.tableData.splice(drugIndex, 1);
+        this.tableData.splice(giftCardIndex, 1);
         //push notification on deleting successfully
-        EventBus.$emit("successNotification", "Drug deleted successfully");
+        EventBus.$emit("successNotification", "Gift card deleted successfully");
       } catch (err) {
         //push notification with the error
         EventBus.$emit(

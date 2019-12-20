@@ -9,7 +9,14 @@
       <div class="container">
         <div class="col s8">
           <div>
-            <cartItem v-for="i in 4" :key="i" class="cartItem" />
+            <cartItem
+              v-for="cartitem in cartItems"
+              :key="cartitem.id"
+              class="cartItem"
+              :cartitem="cartitem"
+            />
+
+            <DrugCard :drug="drug" />
           </div>
         </div>
         <div class="col s4">
@@ -25,6 +32,23 @@ export default {
   components: {
     cartItem: () => import("@/components/Home/CartItem"),
     totalPrice: () => import("@/components/Home/TotalPrice")
+  },
+  mounted() {
+    this.getCartItems();
+  },
+  data() {
+    return {
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
+      cartItems: null
+    };
+  },
+  methods: {
+    async getCartItems() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}userCart/${this.userid}`
+      );
+      this.cartItems = response.data;
+    }
   }
 };
 </script>

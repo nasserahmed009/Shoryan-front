@@ -4,7 +4,16 @@
     <div class="card">
       <div class="card-image">
         <img
-          src="https://wusfnews.wusf.usf.edu/sites/wusf/files/styles/medium/public/201908/pills_prescription_istock_2018.jpg"
+          v-if="drug.imgsUrls && drug.imgsUrls[0]"
+          :src="drug.imgsUrls[0]"
+          width="200"
+          height="250"
+        />
+        <img
+          v-if="!(drug.imgsUrls && drug.imgsUrls[0])"
+          :src="'https://i.imgur.com/QFH6uL3.png'"
+          width="200"
+          height="250"
         />
       </div>
       <div class="card-content">
