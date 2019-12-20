@@ -26,44 +26,7 @@ export default {
   },
   data() {
     return {
-      tableData: [
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        },
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        },
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        },
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        },
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        },
-        {
-          id: 1,
-          drugName: "Antinal",
-          seller: "Hamada adweya",
-          quantity: "200"
-        }
-      ],
+      tableData: [],
       tableStyles: tableStyles,
       headerFields: [
         {

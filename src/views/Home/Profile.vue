@@ -91,7 +91,7 @@ export default {
   data: function() {
     return {
       join_date: "25 jan 2018",
-      courier: false
+      courier: true
     };
   },
   components: {
