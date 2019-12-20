@@ -125,6 +125,18 @@ const HomeRoutes = [
         meta: { title: "Panel - Items " }
       },
       {
+        path: "giftCards",
+        component: () => import("@/views/Panel/ListGiftCards"),
+        name: "listGiftCards",
+        meta: { title: "Panel - list gift cards " }
+      },
+      {
+        path: "addGiftCard",
+        component: () => import("@/views/Panel/AddGiftCard"),
+        name: "addGiftCard",
+        meta: { title: "Panel - add gift card" }
+      },
+      {
         path: "complaints",
         component: () => import("@/views/Panel/Complaints"),
         name: "Complaints",

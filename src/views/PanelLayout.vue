@@ -48,6 +48,11 @@
           <i class="material-icons">warning</i>Complaints
         </router-link>
       </li>
+      <li>
+        <router-link :to="{ name: 'listGiftCards' }">
+          <i class="material-icons">card_giftcard</i>Gift cards
+        </router-link>
+      </li>
     </ul>
 
     <div class="panelMainView">
