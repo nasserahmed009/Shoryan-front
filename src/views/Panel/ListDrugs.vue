@@ -1,6 +1,13 @@
 <template>
   <div>
     <div class="row">
+      <div class="fixed-action-btn">
+        <router-link class="btn-floating btn-large" :to="{ name: 'addDrug' }">
+          <i class="large material-icons">add</i>
+        </router-link>
+      </div>
+
+      <!-- search box -->
       <form class="col s3 right" @submit.prevent="search">
         <div class="input-field">
           <i class="material-icons prefix">search</i>
@@ -14,11 +21,12 @@
       :data="tableData"
       :css="tableStyles"
     >
-      <div class="" slot="actions">
+      <div class="" slot="actions" slot-scope="props">
         <button
           class="btn-floating waves-effect waves-light tooltipped red"
           data-position="top"
           data-tooltip="Delete drug"
+          @click="deleteDrug(props.rowData.id, props.rowIndex)"
         >
           <i class="large material-icons">delete</i>
         </button>
@@ -28,6 +36,8 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+
 import { DataTable } from "v-datatable-light";
 import tableStyles from "@/assets/js/TableStyles";
 export default {
@@ -90,6 +100,26 @@ export default {
         effectiveSubstances += " - " + effectiveSubstance;
       }
       return effectiveSubstances.trim().slice(1);
+    },
+
+    async deleteDrug(drugId, drugIndex) {
+      try {
+        //request to delete the drug
+        await this.axios.delete(
+          `${this.$store.state.baseApiUrl}drugs/${drugId}`
+        );
+
+        //remove the drug from the component
+        this.tableData.splice(drugIndex, 1);
+        //push notification on deleting successfully
+        EventBus.$emit("successNotification", "Drug deleted successfully");
+      } catch (err) {
+        //push notification with the error
+        EventBus.$emit(
+          "errorNotification",
+          "Error occured, please try again later"
+        );
+      }
     }
   }
 };

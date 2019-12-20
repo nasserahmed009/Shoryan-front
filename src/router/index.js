@@ -113,6 +113,12 @@ const HomeRoutes = [
         meta: { title: "Panel - Drugs " }
       },
       {
+        path: "addDrug",
+        component: () => import("@/views/Panel/AddDrug"),
+        name: "addDrug",
+        meta: { title: "Panel - add drug " }
+      },
+      {
         path: "items",
         component: () => import("@/views/Panel/ListItems"),
         name: "ListItems",
