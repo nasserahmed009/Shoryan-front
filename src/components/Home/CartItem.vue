@@ -5,16 +5,16 @@
       <i class="medium material-icons">remove_circle</i>
     </div>
     <div class="">
-      <H4>Item Name</H4>
+      <H4>{{ cartitem.drugName }}</H4>
       <p>
         <i class="tiny material-icons">access_time</i>
         Estimated Delivery Date
       </p>
-      <p style="font-size=10px">Seller Name</p>
+      <p style="font-size=10px">{{ cartitem.sellerName }}</p>
     </div>
     <div class=" bar">
       <p style="font-size:20px">
-        <b> 123 </b>
+        <b> {{ cartitem.price }} </b>
       </p>
       <p style="font-size:20px">
         <b> EGP </b>
@@ -28,6 +28,19 @@
   </div>
   <!-- </div> -->
 </template>
+
+<script>
+export default {
+  props: {
+    // the component expect to get an drug data to be viewed
+    cartitem: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .bar {
   margin: 30px 0px;
