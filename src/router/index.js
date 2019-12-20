@@ -29,6 +29,13 @@ const HomeRoutes = [
         meta: { title: "Shoryan - SingleItem" }
       },
       {
+        path: "listings/drug/:drugId",
+        component: () => import("@/views/Home/ListingsOfDrug"),
+        name: "listingsOfDrug",
+        props: true,
+        meta: { title: "Shoryan - Listings of drug" }
+      },
+      {
         path: "/AddListing",
         component: () => import("@/views/Home/AddListing"),
         name: "AddListing",
