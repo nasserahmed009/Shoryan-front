@@ -24,9 +24,12 @@
         <p><b>Official Price : </b> {{ drug.officialPrice }}</p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn"
-          ><i class="material-icons left">visibility</i>View listings</a
+        <router-link
+          :to="{ name: 'listingsOfDrug', params: { drugId: drug.id } }"
+          class="waves-effect waves-light btn"
         >
+          <i class="material-icons left">visibility</i>View listings
+        </router-link>
       </div>
     </div>
   </div>

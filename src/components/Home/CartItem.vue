@@ -38,11 +38,17 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
+      cartItems: null
+    };
+  },
   methods: {
     //function that takes the item id as a parameter and add the item data in the component data
     async deleteCartItem() {
       this.axios.delete(
-        `${this.$store.state.baseApiUrl}userCart/${this.cartitem.drugId}/${this.cartitem.listingId}`
+        `${this.$store.state.baseApiUrl}userCart/${this.userid}/${this.cartitem.listingId}`
       );
     }
   }

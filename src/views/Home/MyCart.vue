@@ -15,8 +15,6 @@
               class="cartItem"
               :cartitem="cartitem"
             />
-
-            <DrugCard :drug="drug" />
           </div>
         </div>
         <div class="col s4">

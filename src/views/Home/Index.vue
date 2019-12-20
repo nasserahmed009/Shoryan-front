@@ -1,11 +1,12 @@
 <template>
   <div>
-    <Loading v-if="isLoading" />
     <Carousel />
+
+    <Loading v-if="isLoading" />
 
     <div class="container" v-if="!isLoading">
       <h4 class="bold">Most ordered products</h4>
-      <div class="row">
+      <div class="row" v-if="drugs">
         <div
           class="col m3 s12"
           v-for="drug in drugs.slice(0, 8)"
@@ -16,7 +17,7 @@
       </div>
 
       <h4 class="bold">Categories</h4>
-      <div class="row">
+      <div class="row" v-if="categories">
         <div
           class="col  col m4 s12"
           v-for="category in categories.slice(0, 6)"
@@ -32,10 +33,8 @@
 <script>
 export default {
   mounted() {
-    this.isLoading = true;
     this.getDrugs();
     this.getCategories();
-    this.isLoading = false;
   },
   data() {
     return {
@@ -52,17 +51,21 @@ export default {
   },
   methods: {
     async getDrugs() {
+      this.isLoading = true;
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}drugs`
       );
 
       this.drugs = response.data;
+      this.isLoading = false;
     },
     async getCategories() {
+      this.isLoading = true;
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}categories`
       );
       this.categories = response.data;
+      this.isLoading = false;
     }
   }
 };
