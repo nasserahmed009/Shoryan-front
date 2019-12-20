@@ -76,7 +76,7 @@ export default {
     };
   },
   components: {
-    cartItem: () => import("@/components/Home/CartItem")
+    cartItem: () => import("@/components/Home/PastOrdersCard")
   },
   props: {
     // the component expect to get an drug data to be viewed

@@ -84,7 +84,7 @@
               <div
                 id="PastOrders"
                 class="col s12"
-                v-for="order in this.UserPastOrders"
+                v-for="order in this.userPastOrders"
                 :key="order.id"
               >
                 <order :Order="order" />
@@ -108,14 +108,14 @@ export default {
     this.getUpcomingOrders();
     this.getPastOrders();
     this.getActiveListings();
+    this.getNormalUserPastOrders();
   },
   updated() {
     $(".tabs").tabs();
   },
   data: function() {
     return {
-      join_date: "25 jan 2018",
-      courier: false,
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : 16,
       user: null,
       upcomingOrders: null,
       pastOrders: null,
@@ -130,21 +130,21 @@ export default {
   methods: {
     async getUser() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}user/16`
+        `${this.$store.state.baseApiUrl}user/` + this.userid
       );
 
       this.user = response.data;
     },
     async getUpcomingOrders() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}UpcommingOrders/7`
+        `${this.$store.state.baseApiUrl}UpcommingOrders/` + this.userid
       );
       this.upcomingOrders = response.data;
       console.log(this.upcomingOrders);
     },
     async getPastOrders() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}PastOrders/7`
+        `${this.$store.state.baseApiUrl}PastOrders/` + this.userid
       );
 
       this.pastOrders = response.data;
@@ -152,7 +152,7 @@ export default {
     },
     async getActiveListings() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}ActiveListings/3`
+        `${this.$store.state.baseApiUrl}ActiveListings/` + this.userid
       );
 
       this.ActiveListings = response.data;
@@ -160,11 +160,11 @@ export default {
     },
     async getNormalUserPastOrders() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}OrdersOfUser/3`
+        `${this.$store.state.baseApiUrl}OrdersOfUser/` + this.userid
       );
 
       this.userPastOrders = response.data;
-      console.log(this.pastOrders);
+      console.log(this.userPastOrders);
     }
   }
 };
