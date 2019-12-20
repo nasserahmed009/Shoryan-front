@@ -10,13 +10,13 @@
             height="150px"
           />
         </a>
-        <h5>User Name</h5>
-        <h6>Rating</h6>
+        <h5>{{ user.name }}</h5>
+        <h6>{{ user.rating }}</h6>
         <h6 class="location-header">
           <i class="tiny location-icon material-icons">location_on</i>
-          Location
+          {{ user.address }}
         </h6>
-        <h6>Joined {{ join_date }}</h6>
+        <h6>Joined {{ user.registrationDate }}</h6>
       </div>
       <button
         class="settings-button btn waves-effect waves-light right"
@@ -32,7 +32,7 @@
       <div class="container">
         <div class="row">
           <div class="col s12">
-            <div v-if="courier">
+            <div v-if="user.type == 'Courier'">
               <ul class="tabs">
                 <li class="tab col s3">
                   <a class="active" href="#test2">Past orders</a>
@@ -87,16 +87,38 @@ export default {
       $("select").formSelect();
       $(".tabs").tabs();
     });
+    this.getUser();
+  },
+  updated() {
+    $(".tabs").tabs();
   },
   data: function() {
     return {
       join_date: "25 jan 2018",
-      courier: false
+      courier: false,
+      user: null,
+      upcomingOrders: null
     };
   },
   components: {
     ItemCard: () => import("@/components/Home/ItemCard"),
     order: () => import("@/components/Home/Order")
+  },
+  methods: {
+    async getUser() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}user/7`
+      );
+
+      this.user = response.data;
+    },
+    async getUpcomingOrders() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}UpcommingOrders/7`
+      );
+
+      this.upcomingOrders = response.data;
+    }
   }
 };
 </script>

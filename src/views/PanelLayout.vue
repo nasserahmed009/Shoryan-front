@@ -39,6 +39,11 @@
         </router-link>
       </li>
       <li>
+        <router-link :to="{ name: 'listDrugs' }">
+          <i class="material-icons">view_list</i>drugs
+        </router-link>
+      </li>
+      <li>
         <router-link :to="{ name: 'Complaints' }">
           <i class="material-icons">warning</i>Complaints
         </router-link>

@@ -9,7 +9,11 @@
         </div>
       </form>
     </div>
-    <DataTable :header-fields="headerFields" :data="data" :css="tableStyles" />
+    <DataTable
+      :header-fields="headerFields"
+      :data="tableData"
+      :css="tableStyles"
+    />
   </div>
 </template>
 
@@ -17,70 +21,12 @@
 import { DataTable } from "v-datatable-light";
 import tableStyles from "@/assets/js/TableStyles";
 export default {
+  mounted() {
+    this.getAllUsers();
+  },
   data() {
     return {
-      data: [
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 3,
-          name: "hamda",
-          location: "talbya",
-          email: "hamada@gmail.com"
-        },
-        {
-          id: 4,
-          name: "shomma",
-          location: "matba3a",
-          email: "shomma@gmail.com"
-        }
-      ],
+      tableData: [],
       tableStyles: tableStyles,
       headerFields: [
         {
@@ -96,8 +42,12 @@ export default {
           name: "email"
         },
         {
-          label: "location",
-          name: "location"
+          label: "address",
+          name: "address"
+        },
+        {
+          label: "user type",
+          name: "type"
         }
       ]
     };
@@ -108,6 +58,12 @@ export default {
   methods: {
     search() {
       alert("search");
+    },
+    async getAllUsers() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}user/`
+      );
+      this.tableData = response.data; //add the users in array in the table data to be viewed
     }
   }
 };
