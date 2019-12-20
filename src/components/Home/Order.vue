@@ -11,23 +11,31 @@
 
     <div id="complaintModal" class="modal">
       <div class="modal-content">
-        <h4>Add a complaint to order #1234</h4>
-        <div class="input-field col s12">
-          <input id="subject" type="text" class="validate" />
-          <label for="subject">Subject</label>
-        </div>
+        <h4>Add a complaint to order {{ Order.id }}</h4>
+        <form @submit.prevent="Complain">
+          <div class="input-field col s12">
+            <input
+              id="subject"
+              type="text"
+              class="validate"
+              v-model="subject"
+            />
+            <label for="subject">Subject</label>
+          </div>
 
-        <div class="input-field col s12">
-          <textarea
-            id="complaintMessage"
-            class="materialize-textarea"
-          ></textarea>
-          <label for="complaintMessage">Textarea</label>
-        </div>
+          <div class="input-field col s12">
+            <textarea
+              id="complaintMessage"
+              class="materialize-textarea"
+              v-model="message"
+            ></textarea>
+            <label for="complaintMessage">Textarea</label>
+          </div>
 
-        <a class="waves-effect waves-light btn right"
-          ><i class="material-icons right">send</i>Add complaint</a
-        >
+          <button type="submit" class="waves-effect waves-light btn right">
+            <i class="material-icons right">send</i>Add complaint
+          </button>
+        </form>
         <div class="clear"></div>
       </div>
     </div>
@@ -49,6 +57,10 @@
       {{ Order.orderDate }}
     </h6>
     <h6>
+      <span class="bold"> Expected delivery date : </span>
+      {{ Order.expectedDeliveryDate }}
+    </h6>
+    <h6>
       <span class="bold"> Total price : </span>
       {{ totalOrderPrice }}
     </h6>
@@ -61,18 +73,24 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   mounted() {
     $(".modal").modal();
     this.getListingsInOrder();
+    this.normalUserID = this.userid;
   },
-  updated() {
-    $(".modal").modal();
-  },
+
   data() {
     return {
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
       orderState: "delivered",
-      listings: null
+      listings: null,
+      subject: null,
+      message: null,
+      normalUserID: null,
+      courierID: this.Order.courierId,
+      fromCourierToUser: null
     };
   },
   components: {
@@ -98,6 +116,27 @@ export default {
         `${this.$store.state.baseApiUrl}ListingsInOrder/` + this.Order.id
       );
       this.listings = response.data;
+    },
+    async Complain() {
+      EventBus.$emit("clearNotifications"); // to clear any existing notifications
+      console.log(this.Complaint);
+      //the data that will be sent to the api
+      if (this.$store.state.user.type == "Courier") {
+        this.fromCourierToUser = 1;
+      } else {
+        this.fromCourierToUser = 0;
+      }
+      const complaint = {
+        Complaint: {
+          subject: this.subject,
+          message: this.message,
+          normalUserID: this.normalUserID,
+          courierID: this.courierID,
+          fromCourierToUser: this.fromCourierToUser
+        }
+      };
+      this.axios.post(`${this.$store.state.baseApiUrl}Complaints`, complaint);
+      $(".modal").modal("close");
     }
   }
 };

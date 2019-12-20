@@ -115,7 +115,7 @@ export default {
   },
   data: function() {
     return {
-      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : 16,
+      userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
       user: null,
       upcomingOrders: null,
       pastOrders: null,

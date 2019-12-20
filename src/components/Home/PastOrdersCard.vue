@@ -6,11 +6,7 @@
     </div>
     <div class="">
       <H4>{{ Listing.name }}</H4>
-      <p>
-        <i class="tiny material-icons">access_time</i>
-        Estimated Delivery Date
-      </p>
-      <p style="font-size=10px">Seller</p>
+      <p style="font-size=10px">{{ Listing.sellerName }}</p>
     </div>
     <div class=" bar">
       <p style="font-size:20px">
@@ -19,11 +15,6 @@
       <p style="font-size:20px">
         <b> EGP </b>
       </p>
-    </div>
-    <div class=" bar">
-      <div class="iconContainer center">
-        <i class="material-icons">delete</i>
-      </div>
     </div>
   </div>
   <!-- </div> -->
