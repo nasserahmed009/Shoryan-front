@@ -63,6 +63,7 @@
       </nav>
       <div class="container">
         <div class="row">
+          <Notifications />
           <router-view> </router-view>
         </div>
       </div>
@@ -71,9 +72,18 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+
 export default {
   mounted() {
     $(".sidenav").sidenav();
+  },
+  components: {
+    Notifications: () => import("@/components/Notifications")
+  },
+  beforeRouteUpdate(to, from, next) {
+    EventBus.$emit("clearNotifications");
+    next();
   }
 };
 </script>
