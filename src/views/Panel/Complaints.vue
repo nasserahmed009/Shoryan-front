@@ -9,9 +9,19 @@
         </div>
       </form>
     </div>
-    <DataTable :header-fields="headerFields" :data="data" :css="tableStyles">
+    <DataTable
+      :header-fields="headerFields"
+      :data="tableData"
+      :css="tableStyles"
+    >
       <div class="complaintMessage" slot="complaintMessage" slot-scope="props">
-        <span>{{ props.rowData.message.slice(0, 100) }} ... see more </span>
+        <span
+          >{{
+            props.rowData.message.length > 150
+              ? props.rowData.message.slice(0, 100) + "..."
+              : props.rowData.message
+          }}
+        </span>
       </div>
     </DataTable>
   </div>
@@ -21,58 +31,12 @@
 import { DataTable } from "v-datatable-light";
 import tableStyles from "@/assets/js/TableStyles";
 export default {
+  mounted() {
+    this.getAllComplaints();
+  },
   data() {
     return {
-      data: [
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        },
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        },
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        },
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        },
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        },
-        {
-          id: 1,
-          username: "Hamda",
-          orderId: 10,
-          message:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          date: new Date().toLocaleString()
-        }
-      ],
+      tableData: [],
       tableStyles: tableStyles,
       headerFields: [
         {
@@ -80,12 +44,16 @@ export default {
           name: "id"
         },
         {
-          label: "User",
-          name: "username"
+          label: "Subject",
+          name: "subject"
         },
         {
-          label: "Order id",
-          name: "orderId"
+          label: "Courier id",
+          name: "courierId"
+        },
+        {
+          label: "user id",
+          name: "normalUserId"
         },
         {
           label: "Complaint message",
@@ -94,8 +62,8 @@ export default {
           customElement: "complaintMessage"
         },
         {
-          label: "Date",
-          name: "date"
+          label: "Status",
+          name: "status"
         }
       ]
     };
@@ -109,6 +77,12 @@ export default {
     },
     trimMessage(message) {
       return message.slice(0, 5);
+    },
+    async getAllComplaints() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}complaints`
+      );
+      this.tableData = response.data; //add the listings in array in the table data to be viewed
     }
   }
 };
