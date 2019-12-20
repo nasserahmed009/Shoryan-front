@@ -14,7 +14,7 @@
     <hr style="margin:10px 0% 10px 42% " />
     <div class="row" style="padding-top:10px">
       <div class="col s5">
-        <ProfileInfo />
+        <!-- <ProfileInfo /> -->
       </div>
       <div class="col s7">
         <PastOrdersCard v-for="i in 3" :key="i" />
@@ -26,8 +26,8 @@
 <script>
 export default {
   components: {
-    PastOrdersCard: () => import("@/components/Home/PastOrdersCard"),
-    ProfileInfo: () => import("@/components/Home/Profile")
+    PastOrdersCard: () => import("@/components/Home/PastOrdersCard")
+    // ProfileInfo: () => import("@/components/Home/Profile")
   }
 };
 </script>

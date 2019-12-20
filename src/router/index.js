@@ -66,7 +66,7 @@ const HomeRoutes = [
       },
       {
         path: "/Profile",
-        component: () => import("@/components/Home/Profile"),
+        component: () => import("@/views/Home/Profile"),
         name: "Profile",
         meta: { title: "Shoryan - Test" }
       },

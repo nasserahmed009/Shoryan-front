@@ -49,6 +49,7 @@ export default {
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}Listings`
       );
+
       this.items = response.data;
     },
     async getCategories() {
