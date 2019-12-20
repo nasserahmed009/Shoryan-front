@@ -35,42 +35,59 @@
             <div v-if="user.type == 'Courier'">
               <ul class="tabs">
                 <li class="tab col s3">
-                  <a class="active" href="#test2">Past orders</a>
+                  <a class="active" href="#PastOrders">Past orders</a>
                 </li>
                 <li class="tab col s3">
-                  <a href="#test1">Upcomming orders</a>
+                  <a href="#UpcomingOrders">Upcoming orders</a>
                 </li>
 
                 <li class="tab col s3"><a href="#test4">Account balance</a></li>
               </ul>
-              <div id="test2" class="col s12">
-                <order class="order" />
-                <order class="order" />
-                <order class="order" />
+              <div
+                id="PastOrders"
+                class="col s12"
+                v-for="order in this.pastOrders"
+                :key="order.id"
+              >
+                <order :Order="order" />
               </div>
-              <div id="test1" class="col s12">
-                <order class="order" />
+              <div
+                id="UpcomingOrders"
+                class="col s12"
+                v-for="order in this.upcomingOrders"
+                :key="order.id"
+              >
+                <order :Order="order" />
               </div>
               <div id="test4" class="col s12">Test 4</div>
             </div>
             <div v-else>
               <ul class="tabs">
                 <li class="tab col s3">
-                  <a class="active" href="#test2">Active Listings</a>
+                  <a class="active" href="#ActiveListings">Active Listings</a>
                 </li>
                 <li class="tab col s3">
-                  <a href="#test1">past orders</a>
+                  <a href="#PastOrders">past orders</a>
                 </li>
               </ul>
-              <div id="test2" class="col s12">
+              <div id="ActiveListings" class="col s12">
                 <div class="row">
-                  <div class="col m4 s12" v-for="i in 10" :key="i">
-                    <ItemCard />
+                  <div
+                    class="col m4 s12"
+                    v-for="item in ActiveListings"
+                    :key="item.id"
+                  >
+                    <ItemCard :item="item" />
                   </div>
                 </div>
               </div>
-              <div id="test1" class="col s12">
-                <order class="order" />
+              <div
+                id="PastOrders"
+                class="col s12"
+                v-for="order in this.UserPastOrders"
+                :key="order.id"
+              >
+                <order :Order="order" />
               </div>
             </div>
           </div>
@@ -88,6 +105,9 @@ export default {
       $(".tabs").tabs();
     });
     this.getUser();
+    this.getUpcomingOrders();
+    this.getPastOrders();
+    this.getActiveListings();
   },
   updated() {
     $(".tabs").tabs();
@@ -97,7 +117,10 @@ export default {
       join_date: "25 jan 2018",
       courier: false,
       user: null,
-      upcomingOrders: null
+      upcomingOrders: null,
+      pastOrders: null,
+      ActiveListings: null,
+      userPastOrders: null
     };
   },
   components: {
@@ -107,7 +130,7 @@ export default {
   methods: {
     async getUser() {
       const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}user/7`
+        `${this.$store.state.baseApiUrl}user/16`
       );
 
       this.user = response.data;
@@ -116,8 +139,32 @@ export default {
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}UpcommingOrders/7`
       );
-
       this.upcomingOrders = response.data;
+      console.log(this.upcomingOrders);
+    },
+    async getPastOrders() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}PastOrders/7`
+      );
+
+      this.pastOrders = response.data;
+      console.log(this.pastOrders);
+    },
+    async getActiveListings() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}ActiveListings/3`
+      );
+
+      this.ActiveListings = response.data;
+      console.log(this.ActiveListings);
+    },
+    async getNormalUserPastOrders() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}OrdersOfUser/3`
+      );
+
+      this.userPastOrders = response.data;
+      console.log(this.pastOrders);
     }
   }
 };
