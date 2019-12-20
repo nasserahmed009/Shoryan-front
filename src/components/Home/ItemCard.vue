@@ -17,9 +17,17 @@
         <p><b>Price : </b> {{ item.price }}</p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn"
-          ><i class="material-icons left">add</i>Add to card</a
+        <button
+          class="waves-effect waves-light btn"
+          @click.prevent="addItemToCart"
+          v-if="!addedToCart"
         >
+          <i class="material-icons left">add</i>Add to cart
+        </button>
+        <button class="btn green" v-if="addedToCart">
+          <i class="material-icons left">add</i>
+          Added to cart
+        </button>
       </div>
     </div>
   </div>
@@ -27,13 +35,52 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+
 export default {
+  data() {
+    return {
+      addedToCart: false
+    };
+  },
   props: {
     // the component expect to get an item date to be viewed
     item: {
       type: Object,
       required: true
     }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.loggedIn;
+    },
+    loggedInUser() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    //function that add the current item to the logged in user cart
+    async addItemToCart() {
+      console.log("hello");
+      if (!this.loggedIn) return;
+      console.log("hello");
+      try {
+        this.axios.post(
+          `${this.$store.state.baseApiUrl}userCart/${this.loggedInUser.id}/${this.item.id}`,
+          {}
+        );
+
+        this.addedToCart = true;
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured, try again later");
+      }
+    }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.btn {
+  width: 100%;
+}
+</style>

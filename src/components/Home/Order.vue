@@ -12,6 +12,7 @@
     <div id="complaintModal" class="modal">
       <div class="modal-content">
         <h4>Add a complaint to order #1234</h4>
+
         <div class="input-field col s12">
           <input id="subject" type="text" class="validate" />
           <label for="subject">Subject</label>
@@ -25,9 +26,10 @@
           <label for="complaintMessage">Textarea</label>
         </div>
 
-        <a class="waves-effect waves-light btn right"
+        <a type="submit" class="waves-effect waves-light btn right"
           ><i class="material-icons right">send</i>Add complaint</a
         >
+
         <div class="clear"></div>
       </div>
     </div>
