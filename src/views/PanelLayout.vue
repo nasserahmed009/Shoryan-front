@@ -102,7 +102,7 @@ export default {
   },
   computed: {
     userAvatarUrl() {
-      return this.$store.state.baseUrl + this.$store.state.user.imgUrl;
+      return this.$store.state.baseUrl + this.$store.state.user.img_url;
     }
   },
   beforeRouteUpdate(to, from, next) {
