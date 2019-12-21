@@ -35,15 +35,17 @@
           </form>
         </div>
       </div>
-      <button
+      <router-link
         class="settings-button btn waves-effect waves-light right"
-        type="settings"
-        name="action"
-        style="margin:0% 30%"
+        HEAD
+        :to="{ name: 'EditProfile' }"
       >
         Profile Settings
+        <i class="material-icons right">settings</i>
+        ======= style="margin:0% 30%" > Profile Settings
         <i class="material-icons right">send</i>
-      </button>
+        >>>>>>> ca2a5bdef903490e65867e9476bd23ede05552fc
+      </router-link>
     </div>
     <div class="col l9 m8 s">
       <div class="container">
@@ -180,13 +182,17 @@ export default {
     async redeem() {
       EventBus.$emit("clearNotifications"); // to clear any existing notifications
       console.log(this.giftCardCode);
-      this.axios.put(
-        `${this.$store.state.baseApiUrl}GiftCards/` +
-          this.giftCardCode +
-          "/" +
-          this.$store.state.user.id
-      );
-      this.$router.go();
+      try {
+        await this.axios.put(
+          `${this.$store.state.baseApiUrl}GiftCards/` +
+            this.giftCardCode +
+            "/" +
+            this.$store.state.user.id
+        );
+        this.$router.go();
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
     }
   }
 };
@@ -207,5 +213,10 @@ export default {
 }
 .order {
   margin: 10px 0px;
+}
+.settings-button {
+  width: 210px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

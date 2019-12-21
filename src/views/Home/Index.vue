@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   mounted() {
     this.getDrugs();
@@ -52,19 +53,29 @@ export default {
   methods: {
     async getDrugs() {
       this.isLoading = true;
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}drugs`
-      );
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}drugs`
+        );
+        this.drugs = response.data;
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
 
-      this.drugs = response.data;
       this.isLoading = false;
     },
     async getCategories() {
       this.isLoading = true;
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}categories`
-      );
-      this.categories = response.data;
+
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}categories`
+        );
+        this.categories = response.data;
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
+
       this.isLoading = false;
     }
   }

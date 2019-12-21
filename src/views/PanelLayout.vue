@@ -41,12 +41,17 @@
       </li>
       <li>
         <router-link :to="{ name: 'ListItems' }">
-          <i class="material-icons">view_list</i>Items
+          <i class="material-icons">view_list</i>Listings
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'listCategories' }">
+          <i class="material-icons">library_books</i>Categories
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'listDrugs' }">
-          <i class="material-icons">view_list</i>drugs
+          <i class="material-icons">view_list</i>Drugs
         </router-link>
       </li>
       <li>
@@ -57,11 +62,6 @@
       <li>
         <router-link :to="{ name: 'listGiftCards' }">
           <i class="material-icons">card_giftcard</i>Gift cards
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'listCategories' }">
-          <i class="material-icons">library_books</i>Categories
         </router-link>
       </li>
     </ul>

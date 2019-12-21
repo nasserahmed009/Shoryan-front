@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   components: {
     cartItem: () => import("@/components/Home/CartItem"),
@@ -34,6 +35,7 @@ export default {
   },
   mounted() {
     this.getCartItems();
+    this.emptyCart();
   },
   data() {
     return {
@@ -43,10 +45,14 @@ export default {
   },
   methods: {
     async getCartItems() {
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}userCart/${this.userid}`
-      );
-      this.cartItems = response.data;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}userCart/${this.userid}`
+        );
+        this.cartItems = response.data;
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
     },
     emptyCart() {
       this.cartItems = [];

@@ -37,7 +37,20 @@
           </div>
         </div>
       </div>
-
+    </div>
+    <div class="row">
+      <div class="col m6">
+        <div class="grey lighten-3" style="padding: 20px">
+          <UsersOfEachTypeChart />
+        </div>
+      </div>
+      <div class="col m6">
+        <div class="grey lighten-3" style="padding: 20px">
+          <DrugsOfEachCategory />
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col s12">
         <div class="card grey ">
           <div class="card-content white-text">
@@ -74,6 +87,11 @@ export default {
       ordersCount: null,
       complaintsCount: null
     };
+  },
+  components: {
+    UsersOfEachTypeChart: () =>
+      import("@/components/Panel/UsersOfEachTypeChart"),
+    DrugsOfEachCategory: () => import("@/components/Panel/DrugsOfEachCategory")
   },
   methods: {
     async getDashboardData() {

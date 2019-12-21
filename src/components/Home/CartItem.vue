@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   props: {
     // the component expect to get an drug data to be viewed
@@ -48,9 +49,14 @@ export default {
     //function that takes the item id as a parameter and add the item data in the component data
     async deleteCartItem() {
       this.$emit("deleteCartItem", this.cartitem.listingId);
-      this.axios.delete(
-        `${this.$store.state.baseApiUrl}userCart/${this.userid}/${this.cartitem.listingId}`
-      );
+
+      try {
+        this.axios.delete(
+          `${this.$store.state.baseApiUrl}userCart/${this.userid}/${this.cartitem.listingId}`
+        );
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
     }
   }
 };
