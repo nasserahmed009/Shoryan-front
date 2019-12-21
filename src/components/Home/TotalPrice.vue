@@ -58,6 +58,12 @@ export default {
     totalPrice() {
       return this.subTotalPrice + this.deliveryFees;
     },
+    newBalance() {
+      return Math.max(0, this.user.balance - this.totalPrice);
+    },
+    newTotalPrice() {
+      return Math.max(0, this.totalPrice - this.user.balance);
+    },
     cartListingsIds() {
       let cartListingsIds = [];
       for (let cartItem of this.cartItems) {
