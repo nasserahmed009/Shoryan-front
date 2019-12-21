@@ -65,7 +65,7 @@
             class="validate"
             v-model="userData.address"
           />
-          <label for="address" class="active">Email</label>
+          <label for="address" class="active">Address</label>
         </div>
 
         <div
@@ -74,7 +74,7 @@
           "
           class="input-field col s6"
         >
-          <select id="area" v-model="this.userData.area">
+          <select id="area" v-model="userData.area">
             <option value="" disabled selected>Choose your option</option>
             <option value="giza">Giza</option>
             <option value="haram">Haram</option>
@@ -253,7 +253,8 @@ export default {
     async updateSettings() {
       // const imgUrl = this.$refs.profilePicInput.files ? this.$refs.profilePicInput.files[0];
       const requestPayload = {
-        User_Details: this.userData
+        User_Details: this.userData,
+        NormalUsers: this.userData
       };
 
       console.log(requestPayload);
