@@ -25,7 +25,9 @@
           <div class="avatar-preview">
             <div
               id="imagePreview"
-              style="background-image: url(https://img.freepik.com/free-vector/pig-smiling_24640-54623.jpg);"
+              :style="
+                'background-image: url(' + baseUrl + userData.imgUrl + ');'
+              "
             ></div>
           </div>
         </div>
@@ -187,6 +189,9 @@ export default {
     $("select").formSelect();
   },
   computed: {
+    baseUrl() {
+      return this.$store.state.baseUrl;
+    },
     loggedInUser() {
       return this.$store.state.user;
     }
@@ -251,7 +256,12 @@ export default {
       this.userData.phoneNumbers.splice(phoneNumberIndex, 1);
     },
     async updateSettings() {
-      // const imgUrl = this.$refs.profilePicInput.files ? this.$refs.profilePicInput.files[0];
+      if (this.$refs.profilePicInput.files.length) {
+        this.userData.imgUrl = await this.uploadProfilePic(
+          this.$refs.profilePicInput.files[0]
+        );
+      }
+
       const requestPayload = {
         User_Details: this.userData,
         NormalUsers: this.userData
@@ -263,6 +273,8 @@ export default {
           `${this.$store.state.baseApiUrl}user`,
           requestPayload
         );
+
+        this.$store.commit("setUser", this.userData);
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
@@ -272,7 +284,7 @@ export default {
     async uploadProfilePic(file) {
       let formData = new FormData();
 
-      formData.append("profilePic", file, "1.jpg");
+      formData.append("profilePic", file, this.loggedInUser.id + ".jpg");
 
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
@@ -303,7 +315,7 @@ hr {
 .avatar-upload {
   position: relative;
   max-width: 205px;
-  margin: 0px;
+  margin: 30px 0px;
 }
 .avatar-upload .avatar-edit {
   position: absolute;

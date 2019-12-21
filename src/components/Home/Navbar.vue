@@ -27,11 +27,7 @@
               href="#"
               data-target="userAvatarDropdown"
             >
-              <img
-                src="https://img.freepik.com/free-vector/pig-smiling_24640-54623.jpg"
-                alt="userAvatar"
-                class="userAvatar"
-              />
+              <img :src="avatarUrl" alt="userAvatar" class="userAvatar" />
               <span class="bold">{{ loggedInUser.name }}</span>
             </a>
 
@@ -77,6 +73,9 @@ export default {
     //retutn the logged in user
     loggedInUser() {
       return this.$store.state.user;
+    },
+    avatarUrl() {
+      return this.$store.state.baseUrl + this.loggedInUser.imgUrl;
     }
   }
 };

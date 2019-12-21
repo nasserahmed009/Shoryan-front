@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     baseApiUrl: "https://localhost:5001/api/",
+    baseUrl: "https://localhost:5001/",
     user: JSON.parse(localStorage.getItem("user")) || null,
     cartListingsIds: []
   },
@@ -18,6 +19,7 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
     },
     setCartListingsIds(state, cartListingsIds) {
       state.cartListingsIds = cartListingsIds;
@@ -27,7 +29,6 @@ export default new Vuex.Store({
     async login({ state, commit }, credentials) {
       let resposnse = await axios.post(state.baseApiUrl + "login", credentials);
       const user = resposnse.data[0];
-      localStorage.setItem("user", JSON.stringify(user));
       commit("setUser", user);
     },
     async logout({ commit }) {
