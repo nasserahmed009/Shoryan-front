@@ -2,7 +2,13 @@
   <div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
       <li class="blue ">
-        <img src="@/assets/images/shoryanLogo.png" alt="" class="shoryanLogo" />
+        <router-link :to="{ name: 'Index' }">
+          <img
+            src="@/assets/images/shoryanLogo.png"
+            alt=""
+            class="shoryanLogo"
+          />
+        </router-link>
       </li>
       <li class="userSection">
         <div class="user-view">
@@ -12,10 +18,7 @@
             />
           </div>
           <a href="#user">
-            <img
-              class="circle userAvatar"
-              src="https://fsmedia.imgix.net/ee/de/31/4e/1b42/4b9d/9c2a/2bff4db79044/how-anxious-you-are-could-have-to-do-with-how-well-you-are-at-recognizing-faces.jpeg?auto=format%2Ccompress&dpr=2&w=650"
-            />
+            <img class="circle userAvatar" :src="userAvatarUrl" />
           </a>
           <a href="#name"
             ><span class="white-text name bold">{{
@@ -96,6 +99,11 @@ export default {
   },
   components: {
     Notifications: () => import("@/components/Notifications")
+  },
+  computed: {
+    userAvatarUrl() {
+      return this.$store.state.baseUrl + this.$store.state.user.imgUrl;
+    }
   },
   beforeRouteUpdate(to, from, next) {
     EventBus.$emit("clearNotifications");

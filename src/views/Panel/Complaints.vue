@@ -9,7 +9,11 @@
         </div>
       </form>
     </div>
+
+    <Loading v-if="isLoading" loadingMessage="Retriving complaints" />
+
     <DataTable
+      v-if="!isLoading"
       :header-fields="headerFields"
       :data="tableData || []"
       :css="tableStyles"
@@ -36,6 +40,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       tableData: [],
       searchtext: null,
       tableStyles: tableStyles,
@@ -70,7 +75,8 @@ export default {
     };
   },
   components: {
-    DataTable
+    DataTable,
+    Loading: () => import("@/components/Loading")
   },
   methods: {
     search() {
@@ -80,10 +86,12 @@ export default {
       return message.slice(0, 5);
     },
     async getAllComplaints() {
+      this.isLoading = true;
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}complaints`
       );
       this.tableData = response.data; //add the listings in array in the table data to be viewed
+      this.isLoading = false;
     },
     async getSearchedComplaints() {
       const response = await this.axios.get(
