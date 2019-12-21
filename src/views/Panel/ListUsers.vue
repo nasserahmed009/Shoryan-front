@@ -4,14 +4,14 @@
       <form class="col s3 right" @submit.prevent="search">
         <div class="input-field">
           <i class="material-icons prefix">search</i>
-          <input type="text" placeholder="search" />
+          <input type="text" placeholder="search" v-model.lazy="searchtext" />
           <label for="icon_prefix2"></label>
         </div>
       </form>
     </div>
     <DataTable
       :header-fields="headerFields"
-      :data="tableData"
+      :data="tableData || []"
       :css="tableStyles"
     />
   </div>
@@ -28,6 +28,7 @@ export default {
     return {
       tableData: [],
       tableStyles: tableStyles,
+      searchtext: null,
       headerFields: [
         {
           label: "id",
@@ -64,6 +65,22 @@ export default {
         `${this.$store.state.baseApiUrl}user/`
       );
       this.tableData = response.data; //add the users in array in the table data to be viewed
+    },
+    async getSearchedUsers() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}searchUsers/` + this.searchtext
+      );
+      this.tableData = response.data; //add the users in array in the table data to be viewed
+    }
+  },
+  watch: {
+    searchtext(newValue) {
+      this.searchtext = newValue;
+      if (newValue == "") {
+        this.getAllUsers();
+      } else {
+        this.getSearchedUsers();
+      }
     }
   }
 };

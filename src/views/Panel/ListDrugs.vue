@@ -11,14 +11,14 @@
       <form class="col s3 right" @submit.prevent="search">
         <div class="input-field">
           <i class="material-icons prefix">search</i>
-          <input type="text" placeholder="search" />
+          <input type="text" placeholder="search" v-model.lazy="searchtext" />
           <label for="icon_prefix2"></label>
         </div>
       </form>
     </div>
     <DataTable
       :header-fields="headerFields"
-      :data="tableData"
+      :data="tableData || []"
       :css="tableStyles"
     >
       <div class="" slot="actions" slot-scope="props">
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       tableData: [],
+      searchtext: null,
       tableStyles: tableStyles,
       headerFields: [
         {
@@ -101,7 +102,12 @@ export default {
       }
       return effectiveSubstances.trim().slice(1);
     },
-
+    async getSearchedDrugs() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}searchDrugs/` + this.searchtext
+      );
+      this.tableData = response.data; //add the users in array in the table data to be viewed
+    },
     async deleteDrug(drugId, drugIndex) {
       try {
         //request to delete the drug
@@ -119,6 +125,16 @@ export default {
           "errorNotification",
           "Error occured, please try again later"
         );
+      }
+    }
+  },
+  watch: {
+    searchtext(newValue) {
+      this.searchtext = newValue;
+      if (newValue == "") {
+        this.getAllItems();
+      } else {
+        this.getSearchedDrugs();
       }
     }
   }
