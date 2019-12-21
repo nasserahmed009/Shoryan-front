@@ -35,15 +35,13 @@
           </form>
         </div>
       </div>
-      <button
+      <router-link
         class="settings-button btn waves-effect waves-light right"
-        type="settings"
-        name="action"
         style="margin:0% 30%"
       >
         Profile Settings
         <i class="material-icons right">send</i>
-      </button>
+      </router-link>
     </div>
     <div class="col l9 m8 s">
       <div class="container">
