@@ -67,7 +67,6 @@
           </div>
           <div class="input-field col s12">
             <select id="type" v-model="type">
-              <option value="" disabled selected>Choose your option</option>
               <option value="Normal">Normal</option>
               <option value="Pharmacy">Pharmacy</option>
               <option value="Courier">Courier</option>
@@ -76,7 +75,6 @@
           </div>
           <div v-if="type == 'Normal'" class="input-field col s12">
             <select id="gender" v-model="gender">
-              <option value="" disabled selected>Choose your option</option>
               <option value="M">Male</option>
               <option value="F">Female</option>
             </select>
@@ -87,7 +85,6 @@
             class="input-field col s12"
           >
             <select id="area" v-model="area">
-              <option value="" disabled selected>Choose your option</option>
               <option value="giza">Giza</option>
               <option value="haram">Haram</option>
               <option value="shoubra">Shoubra</option>
@@ -134,9 +131,9 @@ export default {
       email: null,
       phoneNumbers: null,
       address: null,
-      type: null,
-      gender: null,
-      area: null
+      type: "Normal",
+      gender: "M",
+      area: "haram"
     };
   },
   methods: {
