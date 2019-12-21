@@ -69,7 +69,11 @@ const HomeRoutes = [
         path: "/MyCart",
         component: () => import("@/views/Home/MyCart"),
         name: "MyCart",
-        meta: { title: "Shoryan - MyCart", requiresAuth: true }
+        meta: {
+          title: "Shoryan - MyCart",
+          requiresAuth: true,
+          roles: ["Normal"]
+        }
       },
       {
         path: "/Profile",
