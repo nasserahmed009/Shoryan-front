@@ -17,9 +17,15 @@
               src="https://fsmedia.imgix.net/ee/de/31/4e/1b42/4b9d/9c2a/2bff4db79044/how-anxious-you-are-could-have-to-do-with-how-well-you-are-at-recognizing-faces.jpeg?auto=format%2Ccompress&dpr=2&w=650"
             />
           </a>
-          <a href="#name"><span class="white-text name bold">John Doe</span></a>
+          <a href="#name"
+            ><span class="white-text name bold">{{
+              this.$store.state.user.name
+            }}</span></a
+          >
           <a href="#email"
-            ><span class="white-text email">jdandturk@gmail.com</span></a
+            ><span class="white-text email">{{
+              this.$store.state.user.email
+            }}</span></a
           >
         </div>
       </li>

@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   components: {
     MultiImgViewer: () => import("@/components/Home/MultiImageViewer")
@@ -102,7 +103,8 @@ export default {
     this.isLoading = false;
 
     $(".datepicker").datepicker({
-      onSelect: this.setExpiryDate
+      onSelect: this.setExpiryDate,
+      minDate: new Date()
     });
 
     $(document).ready(function() {
@@ -136,7 +138,7 @@ export default {
 
       this.drugs = response.data;
     },
-    addListing() {
+    async addListing() {
       const listingData = {
         drugId: this.drugid,
         userid: this.userid,
@@ -145,7 +147,18 @@ export default {
         elbas: this.elbas,
         price: this.price
       };
-      this.axios.post(`${this.$store.state.baseApiUrl}listings`, listingData);
+      try {
+        var listingid = await this.axios.post(
+          `${this.$store.state.baseApiUrl}listings`,
+          listingData
+        );
+        this.$router.push({
+          name: "SingleItem",
+          params: { itemId: listingid.data }
+        }); //return to the home page
+      } catch (err) {
+        EventBus.$emit("errorNotification", err.response.data); //error notification if  error occured
+      }
     },
     parseImgs(event) {
       let files = event.target.files;

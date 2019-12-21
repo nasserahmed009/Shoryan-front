@@ -39,7 +39,7 @@
       <form class="col s3 right" @submit.prevent="search">
         <div class="input-field">
           <i class="material-icons prefix">search</i>
-          <input type="text" placeholder="search" />
+          <input type="text" placeholder="search" v-model.lazy="searchtext" />
           <label for="icon_prefix2"></label>
         </div>
       </form>
@@ -49,7 +49,7 @@
 
     <DataTable
       :header-fields="headerFields"
-      :data="tableData"
+      :data="tableData || []"
       :css="tableStyles"
       v-if="!isLoading"
     >
@@ -79,6 +79,7 @@ export default {
   },
   data() {
     return {
+      searchtext: null,
       isLoading: false,
       newCategoryName: "",
       tableData: [],
@@ -116,7 +117,12 @@ export default {
       this.tableData = response.data; //add the listings in array in the table data to be viewed
       this.isLoading = false;
     },
-
+    async getSearchedCategories() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}searchCategories/` + this.searchtext
+      );
+      this.tableData = response.data; //add the users in array in the table data to be viewed
+    },
     async deleteCategory(categoryId, categoryIndex) {
       EventBus.$emit("clearNotifications");
 
@@ -160,6 +166,18 @@ export default {
       }
 
       $(".modal").modal("close");
+    }
+  },
+  watch: {
+    searchtext(newValue) {
+      this.searchtext = newValue;
+      if (newValue == "") {
+        this.getAllCategories();
+        console.log("ALL");
+      } else {
+        this.getSearchedCategories();
+        console.log("search");
+      }
     }
   }
 };
