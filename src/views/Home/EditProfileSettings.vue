@@ -102,6 +102,7 @@
             id="password"
             type="password"
             class="validate"
+            autocomplete="no"
             v-model="userData.password"
           />
           <label for="password" class="active">Password</label>
