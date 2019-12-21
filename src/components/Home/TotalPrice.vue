@@ -35,9 +35,14 @@
 import { EventBus } from "@/EventBus.js";
 
 export default {
+  mounted() {
+    this.getUser();
+  },
   data() {
     return {
-      deliveryFees: 20
+      deliveryFees: 20,
+      user: null,
+      discount: null
     };
   },
   computed: {
@@ -48,7 +53,6 @@ export default {
       for (let cartItem of this.cartItems) {
         subTotal += cartItem.price;
       }
-
       return subTotal;
     },
     totalPrice() {
@@ -61,7 +65,6 @@ export default {
       }
       return cartListingsIds;
     },
-
     loggedInUser() {
       return this.$store.state.user;
     }
@@ -111,6 +114,13 @@ export default {
       } catch (err) {
         EventBus.$emit("errorNotification", "Error occured, try again later");
       }
+    },
+    async getUser() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}user/${this.loggedInUser.id}`
+      );
+      this.user = response.data;
+      console.log(this.user.balance);
     }
   }
 };
