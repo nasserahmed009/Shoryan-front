@@ -33,12 +33,12 @@
 
             <!-- Dropdown Structure -->
             <ul id="userAvatarDropdown" class="dropdown-content">
-              <li v-if="loggedInUser.type != 'Courier'">
+              <li v-if="loggedInUser.type == 'Normal'">
                 <router-link :to="{ name: 'MyCart' }" href="#!">
                   My Cart
                 </router-link>
               </li>
-              <li>
+              <li v-if="loggedInUser.type != 'Admin'">
                 <router-link :to="{ name: 'Profile' }" href="#!">
                   Profile
                 </router-link>
