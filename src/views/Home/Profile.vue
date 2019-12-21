@@ -5,7 +5,7 @@
         <a href="#user">
           <img
             class="circle userAvatar"
-            src="../../assets/images/drug.jpg"
+            :src="baseUrl + user.imgUrl"
             width="150px"
             height="150px"
           />
@@ -37,14 +37,10 @@
       </div>
       <router-link
         class="settings-button btn waves-effect waves-light right"
-        HEAD
         :to="{ name: 'EditProfile' }"
       >
         Profile Settings
         <i class="material-icons right">settings</i>
-        ======= style="margin:0% 30%" > Profile Settings
-        <i class="material-icons right">send</i>
-        >>>>>>> ca2a5bdef903490e65867e9476bd23ede05552fc
       </router-link>
     </div>
     <div class="col l9 m8 s">
@@ -82,6 +78,9 @@
                 <li class="tab col s3">
                   <a href="#PastOrders">past orders</a>
                 </li>
+                <li class="tab col s3">
+                  <a href="#Statistics">Statistics</a>
+                </li>
               </ul>
               <div id="ActiveListings" class="col s12">
                 <div class="row">
@@ -98,6 +97,9 @@
                 <div v-for="order in this.userPastOrders" :key="order.id">
                   <order :Order="order" />
                 </div>
+              </div>
+              <div id="Statistics" class="col s12">
+                <MoneyGainedInYearChart />
               </div>
             </div>
           </div>
@@ -138,7 +140,14 @@ export default {
   },
   components: {
     ItemCard: () => import("@/components/Home/ItemCard"),
-    order: () => import("@/components/Home/Order")
+    order: () => import("@/components/Home/Order"),
+    MoneyGainedInYearChart: () =>
+      import("@/components/Home/MoneyGainedInYearChart")
+  },
+  computed: {
+    baseUrl() {
+      return this.$store.state.baseUrl;
+    }
   },
   methods: {
     async getUser() {
@@ -218,5 +227,8 @@ export default {
   width: 210px;
   margin-left: auto;
   margin-right: auto;
+}
+.userAvatar {
+  object-fit: cover;
 }
 </style>

@@ -75,7 +75,7 @@ export default {
       return this.$store.state.user;
     },
     avatarUrl() {
-      return this.$store.state.baseUrl + this.loggedInUser.imgUrl;
+      return this.$store.state.baseUrl + this.loggedInUser.img_url;
     }
   }
 };

@@ -274,8 +274,9 @@ export default {
           `${this.$store.state.baseApiUrl}user`,
           requestPayload
         );
-
+        this.userData.img_url = this.userData.imgUrl;
         this.$store.commit("setUser", this.userData);
+        localStorage.setItem("user", JSON.stringify(this.userData));
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }

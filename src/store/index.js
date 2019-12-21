@@ -19,7 +19,6 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user;
-      localStorage.setItem("user", JSON.stringify(user));
     },
     setCartListingsIds(state, cartListingsIds) {
       state.cartListingsIds = cartListingsIds;
@@ -29,11 +28,12 @@ export default new Vuex.Store({
     async login({ state, commit }, credentials) {
       let resposnse = await axios.post(state.baseApiUrl + "login", credentials);
       const user = resposnse.data[0];
+      localStorage.setItem("user", JSON.stringify(user));
       commit("setUser", user);
     },
     async logout({ commit }) {
-      localStorage.removeItem("user");
       commit("setUser", null);
+      localStorage.removeItem("user");
     },
     addCartListingId({ state, commit }, listingId) {
       let cartListingsIds = state.cartListingsIds;
