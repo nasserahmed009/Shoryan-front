@@ -186,6 +186,12 @@ const HomeRoutes = [
         }
       }
     ]
+  },
+  {
+    path: "*",
+    name: "error404",
+    component: () => import("@/views/Home/Error404"),
+    meta: { title: "Page Not Found - Error 404" }
   }
 ];
 
