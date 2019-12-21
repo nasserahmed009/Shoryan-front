@@ -65,13 +65,10 @@
                   <order :Order="order" />
                 </div>
               </div>
-              <div
-                id="UpcomingOrders"
-                class="col s12"
-                v-for="order in this.upcomingOrders"
-                :key="order.id"
-              >
-                <order :Order="order" />
+              <div id="UpcomingOrders" class="col s12">
+                <div v-for="order in this.upcomingOrders" :key="order.id">
+                  <order :Order="order" />
+                </div>
               </div>
               <div id="test4" class="col s12">Test 4</div>
             </div>
