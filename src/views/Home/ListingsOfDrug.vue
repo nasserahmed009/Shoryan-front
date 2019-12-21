@@ -41,7 +41,7 @@ export default {
       this.isLoading = true;
       try {
         const response = await this.axios.get(
-          `${this.$store.state.baseApiUrl}ListingsInOrder/${drugId}`
+          `${this.$store.state.baseApiUrl}ListingsOfDrug/${drugId}`
         );
 
         this.listings = response.data;

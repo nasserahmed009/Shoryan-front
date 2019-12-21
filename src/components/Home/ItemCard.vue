@@ -15,6 +15,7 @@
         <p><b>Shreets : </b> {{ item.shreets }}</p>
         <p><b>Elbas : </b> {{ item.elbas }}</p>
         <p><b>Price : </b> {{ item.price }}</p>
+        <p><b>Seller : </b> {{ item.sellerName }}</p>
       </div>
       <div class="card-action">
         <button
