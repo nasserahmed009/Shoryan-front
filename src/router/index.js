@@ -16,6 +16,12 @@ const HomeRoutes = [
         meta: { title: "Shoryan - Index" }
       },
       {
+        path: "/testUpload",
+        component: () => import("@/components/Home/test"),
+        name: "Index",
+        meta: { title: "Shoryan - Index" }
+      },
+      {
         path: "category/:categoryId",
         component: () => import("@/views/Home/SingleCategory"),
         name: "SingleCategory",
