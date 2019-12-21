@@ -42,7 +42,7 @@
 
     <a
       class="waves-effect waves-light btn green right"
-      v-if="Order.state == 'NotDelivered'"
+      v-if="Order.state == 'NotDelivered' && loggedInUser.type == 'Courier'"
       @click.prevent="markOrderAsDelivered"
     >
       <i class="material-icons left">check</i>
@@ -109,6 +109,9 @@ export default {
       return (
         this.Order.deliverPrice + this.Order.itemsPrice - this.Order.discount
       );
+    },
+    loggedInUser() {
+      return this.$store.state.user;
     }
   },
   methods: {
