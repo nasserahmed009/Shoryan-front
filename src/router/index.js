@@ -148,6 +148,16 @@ const HomeRoutes = [
         }
       },
       {
+        path: "Categories",
+        component: () => import("@/views/Panel/ListCategories"),
+        name: "listCategories",
+        meta: {
+          title: "Panel - list categories ",
+          requiresAuth: true,
+          roles: ["Admin"]
+        }
+      },
+      {
         path: "complaints",
         component: () => import("@/views/Panel/Complaints"),
         name: "Complaints",

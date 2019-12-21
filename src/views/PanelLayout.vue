@@ -53,6 +53,11 @@
           <i class="material-icons">card_giftcard</i>Gift cards
         </router-link>
       </li>
+      <li>
+        <router-link :to="{ name: 'listCategories' }">
+          <i class="material-icons">library_books</i>Categories
+        </router-link>
+      </li>
     </ul>
 
     <div class="panelMainView">
