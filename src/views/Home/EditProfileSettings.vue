@@ -170,8 +170,7 @@ export default {
     },
     async updateSettings() {
       const requestPayload = {
-        User_Details: this.userData,
-        NormalUsers: {}
+        User_Details: this.userData
       };
 
       console.log(requestPayload);
