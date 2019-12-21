@@ -62,7 +62,10 @@ export default {
       return Math.max(0, this.user.balance - this.totalPrice);
     },
     newTotalPrice() {
-      return Math.max(0, this.totalPrice - this.user.balance);
+      return Math.max(
+        0,
+        this.subTotalPrice + this.deliveryFees - this.user.balance
+      );
     },
     cartListingsIds() {
       let cartListingsIds = [];
