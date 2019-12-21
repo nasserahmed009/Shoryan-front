@@ -2,8 +2,8 @@
   <div class="order grey lighten-4">
     <a
       class="waves-effect waves-light btn yellow black-text right modal-trigger"
-      v-if="(orderState = 'delivered')"
       href="#complaintModal"
+      v-if="Order.state == 'Delivered'"
     >
       <i class="material-icons left">warning</i>
       Add complaint
@@ -42,10 +42,11 @@
 
     <a
       class="waves-effect waves-light btn green right"
-      v-if="orderState != 'delivered'"
+      v-if="Order.state == 'NotDelivered'"
+      @click.prevent="markOrderAsDelivered"
     >
-      <i class="material-icons left">shopping_cart</i>
-      Order delivered
+      <i class="material-icons left">check</i>
+      Mark order as delivered
     </a>
 
     <h6>
@@ -84,7 +85,7 @@ export default {
   data() {
     return {
       userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
-      orderState: "delivered",
+
       listings: null,
       subject: null,
       message: null,
@@ -137,6 +138,19 @@ export default {
       };
       this.axios.post(`${this.$store.state.baseApiUrl}Complaints`, complaint);
       $(".modal").modal("close");
+    },
+    async markOrderAsDelivered() {
+      //send the request to mark the order as completed
+      try {
+        await this.axios.post(
+          `${this.$store.state.baseApiUrl}Order/${this.Order.id}`,
+          {}
+        );
+
+        this.$emit("orderCompleted", this.Order.id);
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured, try again later");
+      }
     }
   }
 };
