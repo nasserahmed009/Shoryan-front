@@ -59,9 +59,11 @@ export default {
       return this.subTotalPrice + this.deliveryFees;
     },
     newBalance() {
+      if (this.user == null) return 0;
       return Math.max(0, this.user.balance - this.totalPrice);
     },
     newTotalPrice() {
+      if (this.user == null) return this.totalPrice;
       return Math.max(
         0,
         this.subTotalPrice + this.deliveryFees - this.user.balance
@@ -130,7 +132,6 @@ export default {
         `${this.$store.state.baseApiUrl}user/${this.loggedInUser.id}`
       );
       this.user = response.data;
-      console.log(this.user.balance);
     },
     async updateBalance() {
       await this.axios.post(
