@@ -64,7 +64,7 @@
           <label for="password" class="active">Password</label>
         </div>
         <!-- confirmimg password -->
-        <div class="input-field col s6">
+        <!-- <div class="input-field col s6">
           <input
             id="password"
             type="password"
@@ -72,7 +72,7 @@
             v-model="userData.confirmPassword"
           />
           <label for="password">Confirm Password</label>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -82,7 +82,7 @@
       <hr />
       <div
         class="row nomargin"
-        v-for="phoneNumber in phoneNumbers"
+        v-for="(phoneNumber, phoneNumberIndex) in userData.phoneNumbers"
         :key="phoneNumber"
       >
         <!-- editing password -->
@@ -95,20 +95,30 @@
           />
           <label for="number" class="active">Phone Number</label>
         </div>
-        <i class="material-icons red-text removePhoneNumber">close</i>
+        <i
+          class="material-icons red-text removePhoneNumber"
+          @click.prevent="deletePhoneNumber(phoneNumber, phoneNumberIndex)"
+          >close</i
+        >
       </div>
       <!-- <p><i class="material-icons">add</i> Add another phone number</p> -->
 
       <!-- new phone numebr -->
       <div class="row nomargin">
         <div class="input-field col s6">
-          <input id="newPhoneNumber" type="text" class="validate" />
+          <input
+            id="newPhoneNumber"
+            type="text"
+            class="validate"
+            @keydown.enter="addPhoneNumber"
+            v-model="newPhoneNumber"
+          />
           <label for="newPhoneNumber">Add new Phone Number</label>
         </div>
       </div>
     </div>
     <div class="container">
-      <button class="btn">Update settings</button>
+      <button class="btn" @click="updateSettings">Update settings</button>
     </div>
   </div>
 </template>
@@ -123,7 +133,8 @@ export default {
   data() {
     return {
       userData: null,
-      phoneNumbers: ["1223342", "12312321", "1231232"]
+      phoneNumbers: ["1223342", "12312321", "1231232"],
+      newPhoneNumber: ""
     };
   },
   computed: {
@@ -142,6 +153,32 @@ export default {
       } catch (err) {
         EventBus.$emit("errorNotification", "Error occured, try again later");
       }
+    },
+    async addPhoneNumber() {
+      await this.axios.post(
+        `${this.$store.state.baseApiUrl}userPhoneNumber/${this.loggedInUser.id}/${this.newPhoneNumber}`
+      );
+      this.userData.phoneNumbers.push(this.newPhoneNumber);
+      this.newPhoneNumber = "";
+    },
+    async deletePhoneNumber(phoneNumber, phoneNumberIndex) {
+      await this.axios.delete(
+        `${this.$store.state.baseApiUrl}deletePhoneNumber/${this.loggedInUser.id}/${phoneNumber}`
+      );
+
+      this.userData.phoneNumbers.splice(phoneNumberIndex, 1);
+    },
+    async updateSettings() {
+      const requestPayload = {
+        User_Details: this.userData,
+        NormalUsers: {}
+      };
+
+      console.log(requestPayload);
+      await this.axios.put(
+        `${this.$store.state.baseApiUrl}user`,
+        requestPayload
+      );
     }
   }
 };
