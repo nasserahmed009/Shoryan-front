@@ -26,11 +26,14 @@
         <button
           class="waves-effect waves-light btn"
           @click.prevent="addItemToCart"
-          v-if="!addedToCart"
+          v-if="!addedToCart && loggedInUser.type != 'Courier'"
         >
           <i class="material-icons left">add</i>Add to cart
         </button>
-        <button class="btn green" v-if="addedToCart">
+        <button
+          class="btn green"
+          v-if="addedToCart && loggedInUser.type != 'Courier'"
+        >
           <i class="material-icons left">add</i>
           Added to cart
         </button>
