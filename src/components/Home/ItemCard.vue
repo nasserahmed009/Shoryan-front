@@ -15,9 +15,14 @@
         <p><b>Shreets : </b> {{ item.shreets }}</p>
         <p><b>Elbas : </b> {{ item.elbas }}</p>
         <p><b>Price : </b> {{ item.price }}</p>
-        <p><b>Seller : </b> {{ item.sellerName }}</p>
+        <p v-if="this.loggedIn == true && this.loggedInUser.id != item.userId">
+          <b>Seller : </b> {{ item.sellerName }}
+        </p>
       </div>
-      <div class="card-action">
+      <div
+        class="card-action"
+        v-if="this.loggedIn == true && item.userId != this.loggedInUser.id"
+      >
         <button
           class="waves-effect waves-light btn"
           @click.prevent="addItemToCart"
