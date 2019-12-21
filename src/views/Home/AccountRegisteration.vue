@@ -144,14 +144,15 @@ export default {
       EventBus.$emit("clearNotifications"); // to clear any existing notifications
 
       //the data that will be sent to the api
-      const credentials = {
+      const requestPayload = {
         User_Details: {
           name: this.firstname + " " + this.lastname,
           password: this.password,
           email: this.email,
           phoneNumbers: [this.phoneNumbers],
           address: this.address,
-          type: this.type
+          type: this.type,
+          imgUrl: "images/profilePics/default.png"
         },
         Couriers: {
           area: this.area
@@ -165,7 +166,7 @@ export default {
       try {
         await this.axios.post(
           `${this.$store.state.baseApiUrl}user`,
-          credentials
+          requestPayload
         );
         this.$router.push("/Login"); //return to the home page
       } catch (err) {
