@@ -27,7 +27,7 @@
                 class="validate"
                 v-model="giftCardCode"
               />
-              <label class="center" for="subject">GiftCard Code</label>
+              <label class="center" for="code">GiftCard Code</label>
               <button type="submit" class="waves-effect waves-light btn right">
                 <i class="material-icons right">send</i>Redeem
               </button>
@@ -60,13 +60,10 @@
 
                 <li class="tab col s3"><a href="#test4">Account balance</a></li>
               </ul>
-              <div
-                id="PastOrders"
-                class="col s12"
-                v-for="order in this.pastOrders"
-                :key="order.id"
-              >
-                <order :Order="order" />
+              <div id="PastOrders" class="col s12">
+                <div v-for="order in this.pastOrders" :key="order.id">
+                  <order :Order="order" />
+                </div>
               </div>
               <div
                 id="UpcomingOrders"
@@ -98,13 +95,10 @@
                   </div>
                 </div>
               </div>
-              <div
-                id="PastOrders"
-                class="col s12"
-                v-for="order in this.userPastOrders"
-                :key="order.id"
-              >
-                <order :Order="order" />
+              <div id="PastOrders" class="col s12">
+                <div v-for="order in this.userPastOrders" :key="order.id">
+                  <order :Order="order" />
+                </div>
               </div>
             </div>
           </div>
