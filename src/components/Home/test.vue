@@ -1,31 +1,73 @@
 <template>
-  <div>
-    <h1>test upload</h1>
-
-    <h1>File Upload Using Angular 5 and ASP.NET Core 2.1</h1>
-    <input type="file" multiple @change="upload($event.target.files)" />
-    <br />
+  <div class="small">
+    <div class="hamada">
+      <BarChart
+        :chart-data="datacollection"
+        :options="datacollection.options"
+      ></BarChart>
+    </div>
   </div>
 </template>
 
 <script>
+import BarChart from "@/components/Charts/BarChart.vue";
+
 export default {
+  components: {
+    BarChart
+  },
+  data() {
+    return {
+      datacollection: {
+        labels: [
+          "label1",
+          "label2",
+          "label1",
+          "label2",
+          "label2",
+          "label1",
+          "label2"
+        ],
+        datasets: [
+          {
+            // barPercentage: 0.5,
+            backgroundColor: ["red", "green", "blue"],
+            // barThickness: 6,
+            // maxBarThickness: 8,
+            // minBarLength: 2,
+            data: [10, 20, 30, 40, 50, 60, 70],
+            label: ["dsads"]
+          }
+        ],
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  min: 0,
+                  max: 100
+                }
+              }
+            ]
+          }
+        }
+      }
+    };
+  },
+  mounted() {
+    // this.fillData();
+  },
   methods: {
-    async upload(files) {
-      console.log(files);
-      if (files.length == 0) return;
-
-      let formData = new FormData();
-
-      for (let file of files) {
-        formData.append(file.name, file);
-      }
-
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
-      await this.axios.post(`${this.$store.state.baseApiUrl}upload`, formData);
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     }
   }
 };
 </script>
+
+<style>
+.small {
+  max-width: 600px;
+  margin: 150px auto;
+}
+</style>

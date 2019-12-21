@@ -103,7 +103,8 @@ export default {
     this.isLoading = false;
 
     $(".datepicker").datepicker({
-      onSelect: this.setExpiryDate
+      onSelect: this.setExpiryDate,
+      minDate: new Date()
     });
 
     $(document).ready(function() {

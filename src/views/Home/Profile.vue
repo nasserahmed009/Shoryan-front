@@ -37,10 +37,14 @@
       </div>
       <router-link
         class="settings-button btn waves-effect waves-light right"
+        HEAD
         :to="{ name: 'EditProfile' }"
       >
         Profile Settings
         <i class="material-icons right">settings</i>
+        ======= style="margin:0% 30%" > Profile Settings
+        <i class="material-icons right">send</i>
+        >>>>>>> ca2a5bdef903490e65867e9476bd23ede05552fc
       </router-link>
     </div>
     <div class="col l9 m8 s">
