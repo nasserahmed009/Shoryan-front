@@ -13,13 +13,19 @@
         </div>
       </div>
     </div>
-    <h4>Loading</h4>
+    <h4>{{ loadingMessage }}</h4>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Loading"
+  name: "Loading",
+  props: {
+    loadingMessage: {
+      type: String,
+      default: "Loading"
+    }
+  }
 };
 </script>
 

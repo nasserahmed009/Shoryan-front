@@ -110,6 +110,16 @@ const HomeRoutes = [
         meta: { title: "Panel - Users ", requiresAuth: true, roles: ["Admin"] }
       },
       {
+        path: "addUser",
+        component: () => import("@/views/Panel/AddUser"),
+        name: "addUser",
+        meta: {
+          title: "Panel - Add user ",
+          requiresAuth: true,
+          roles: ["Admin"]
+        }
+      },
+      {
         path: "drugs",
         component: () => import("@/views/Panel/ListDrugs"),
         name: "listDrugs",
