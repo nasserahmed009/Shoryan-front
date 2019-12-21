@@ -9,163 +9,166 @@
     </div>
     <!-- <hr /> -->
     <!-- basic Information section  -->
-    <div class="container">
-      <div class="imgUploader">
-        <div class="avatar-upload">
-          <div class="avatar-edit">
+    <Loading v-if="isLoading" />
+    <div v-if="!isLoading && userData">
+      <div class="container">
+        <div class="imgUploader">
+          <div class="avatar-upload">
+            <div class="avatar-edit">
+              <input
+                type="file"
+                id="imageUpload"
+                accept=".jpg, .jpeg"
+                ref="profilePicInput"
+                @change="profilePicChanged($event)"
+              />
+              <label for="imageUpload"></label>
+            </div>
+            <div class="avatar-preview">
+              <div
+                id="imagePreview"
+                :style="
+                  'background-image: url(' + baseUrl + userData.imgUrl + ');'
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <h5 class="bold">Basic Information</h5>
+        <hr />
+        <div class="row">
+          <!-- editing name -->
+          <div class="input-field col s6">
             <input
-              type="file"
-              id="imageUpload"
-              accept=".jpg, .jpeg"
-              ref="profilePicInput"
-              @change="profilePicChanged($event)"
+              id="name"
+              type="text"
+              class="validate"
+              v-model="userData.name"
             />
-            <label for="imageUpload"></label>
+            <label for="name" class="active">Name</label>
           </div>
-          <div class="avatar-preview">
-            <div
-              id="imagePreview"
-              :style="
-                'background-image: url(' + baseUrl + userData.imgUrl + ');'
-              "
-            ></div>
+
+          <!-- editing email -->
+          <div class="input-field col s6">
+            <input
+              id="email"
+              type="email"
+              class="validate"
+              v-model="userData.email"
+            />
+            <label for="email" class="active">Email</label>
+          </div>
+
+          <!-- editing address -->
+          <div class="input-field col s6">
+            <input
+              id="address"
+              type="text"
+              class="validate"
+              v-model="userData.address"
+            />
+            <label for="address" class="active">Address</label>
+          </div>
+
+          <div
+            v-if="
+              this.userData.type == 'Normal' || this.userData.type == 'Courier'
+            "
+            class="input-field col s6"
+          >
+            <select id="area" v-model="userData.area">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="giza">Giza</option>
+              <option value="haram">Haram</option>
+              <option value="shoubra">Shoubra</option>
+              <option value="nasrCity">Nasr City</option>
+              <option value="heliopolis">Heliopolis</option>
+              <option value="ramsis">Ramsis</option>
+              <option value="dokki">Dokki</option>
+            </select>
+            <label>Area</label>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container">
-      <h5 class="bold">Basic Information</h5>
-      <hr />
-      <div class="row">
-        <!-- editing name -->
-        <div class="input-field col s6">
-          <input
-            id="name"
-            type="text"
-            class="validate"
-            v-model="userData.name"
-          />
-          <label for="name" class="active">Name</label>
-        </div>
 
-        <!-- editing email -->
-        <div class="input-field col s6">
-          <input
-            id="email"
-            type="email"
-            class="validate"
-            v-model="userData.email"
-          />
-          <label for="email" class="active">Email</label>
+      <!-- security Information section  -->
+      <div class="container">
+        <h5 class="bold">Security Information</h5>
+        <hr />
+        <div class="row">
+          <div class="input-field col s6">
+            <input
+              id="oldpassword"
+              type="password"
+              class="validate"
+              autocomplete="off"
+              v-model="oldPassword"
+              required
+            />
+            <label for="oldpassword" class="active">Password</label>
+          </div>
+          <!-- editing password -->
+          <div class="input-field col s6">
+            <input
+              id="newpassword"
+              type="password"
+              class="validate"
+              autocomplete="off"
+              v-model="newPassword"
+            />
+            <label for="newpassword" class="active">New Password</label>
+          </div>
+          <!-- confirmimg password -->
         </div>
+      </div>
 
-        <!-- editing address -->
-        <div class="input-field col s6">
-          <input
-            id="address"
-            type="text"
-            class="validate"
-            v-model="userData.address"
-          />
-          <label for="address" class="active">Address</label>
-        </div>
-
+      <!-- additional Information section  -->
+      <div class="container">
+        <h5 class="bold">Additional Information</h5>
+        <hr />
         <div
-          v-if="
-            this.userData.type == 'Normal' || this.userData.type == 'Courier'
-          "
-          class="input-field col s6"
+          class="row nomargin"
+          v-for="(phoneNumber, phoneNumberIndex) in userData.phoneNumbers"
+          :key="phoneNumber"
         >
-          <select id="area" v-model="userData.area">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="giza">Giza</option>
-            <option value="haram">Haram</option>
-            <option value="shoubra">Shoubra</option>
-            <option value="nasrCity">Nasr City</option>
-            <option value="heliopolis">Heliopolis</option>
-            <option value="ramsis">Ramsis</option>
-            <option value="dokki">Dokki</option>
-          </select>
-          <label>Area</label>
+          <!-- editing password -->
+          <div class="input-field col s6">
+            <input
+              id="number"
+              type="text"
+              class="validate"
+              :value="phoneNumber"
+            />
+            <label for="number" class="active">Phone Number</label>
+          </div>
+
+          <i
+            class="material-icons red-text removePhoneNumber"
+            @click.prevent="deletePhoneNumber(phoneNumber, phoneNumberIndex)"
+            >close</i
+          >
+        </div>
+        <!-- <p><i class="material-icons">add</i> Add another phone number</p> -->
+
+        <!-- new phone numebr -->
+        <div class="row nomargin">
+          <div class="input-field col s6">
+            <input
+              id="newPhoneNumber"
+              type="text"
+              class="validate"
+              @keydown.enter="addPhoneNumber"
+              v-model="newPhoneNumber"
+            />
+            <label for="newPhoneNumber">Add new Phone Number</label>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- security Information section  -->
-    <div class="container">
-      <h5 class="bold">Security Information</h5>
-      <hr />
-      <div class="row">
-        <div class="input-field col s6">
-          <input
-            id="oldpassword"
-            type="password"
-            class="validate"
-            autocomplete="off"
-            v-model="oldPassword"
-            required
-          />
-          <label for="oldpassword" class="active">Password</label>
-        </div>
-        <!-- editing password -->
-        <div class="input-field col s6">
-          <input
-            id="newpassword"
-            type="password"
-            class="validate"
-            autocomplete="off"
-            v-model="newPassword"
-          />
-          <label for="newpassword" class="active">New Password</label>
-        </div>
-        <!-- confirmimg password -->
+      <div class="container">
+        <button class="btn" @click="updateSettings">Update settings</button>
       </div>
-    </div>
-
-    <!-- additional Information section  -->
-    <div class="container">
-      <h5 class="bold">Additional Information</h5>
-      <hr />
-      <div
-        class="row nomargin"
-        v-for="(phoneNumber, phoneNumberIndex) in userData.phoneNumbers"
-        :key="phoneNumber"
-      >
-        <!-- editing password -->
-        <div class="input-field col s6">
-          <input
-            id="number"
-            type="text"
-            class="validate"
-            :value="phoneNumber"
-          />
-          <label for="number" class="active">Phone Number</label>
-        </div>
-
-        <i
-          class="material-icons red-text removePhoneNumber"
-          @click.prevent="deletePhoneNumber(phoneNumber, phoneNumberIndex)"
-          >close</i
-        >
-      </div>
-      <!-- <p><i class="material-icons">add</i> Add another phone number</p> -->
-
-      <!-- new phone numebr -->
-      <div class="row nomargin">
-        <div class="input-field col s6">
-          <input
-            id="newPhoneNumber"
-            type="text"
-            class="validate"
-            @keydown.enter="addPhoneNumber"
-            v-model="newPhoneNumber"
-          />
-          <label for="newPhoneNumber">Add new Phone Number</label>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <button class="btn" @click="updateSettings">Update settings</button>
     </div>
   </div>
 </template>
@@ -182,6 +185,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       userData: null,
       phoneNumbers: [],
       newPhoneNumber: "",
@@ -200,6 +204,9 @@ export default {
     loggedInUser() {
       return this.$store.state.user;
     }
+  },
+  components: {
+    Loading: () => import("@/components/Loading")
   },
   methods: {
     profilePicChanged(event) {
