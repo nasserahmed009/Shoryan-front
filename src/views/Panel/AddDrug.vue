@@ -56,6 +56,18 @@
         />
         <label for="effectiveSubstance">Effective substance</label>
       </div>
+
+      <p class="bold">Categories :</p>
+      <p v-for="category in categories" :key="category.id" class="category">
+        <label>
+          <input
+            type="checkbox"
+            :value="category.id"
+            v-model="selectedCategories"
+          />
+          <span>{{ category.name }}</span>
+        </label>
+      </p>
     </div>
     <div class="btn right" @click.prevent="addDrug">Add drug</div>
   </div>
@@ -64,18 +76,29 @@
 import { EventBus } from "@/EventBus.js"; //for pushing notifications
 
 export default {
-  mounted() {},
+  mounted() {
+    this.getCategories();
+  },
   data() {
     return {
+      selectedCategories: [],
       drugName: "",
       drugPrice: null,
       newImgUrl: "",
       imgUrls: [],
+      categories: [],
       newEffectiveSubstance: "",
       effectiveSubstances: []
     };
   },
   methods: {
+    async getCategories() {
+      const response = await this.axios.get(
+        `${this.$store.state.baseApiUrl}categories`
+      );
+
+      this.categories = response.data;
+    },
     async addDrug() {
       try {
         //constructing the payload for the request
@@ -84,7 +107,7 @@ export default {
             name: this.drugName,
             officialPrice: this.drugPrice,
             imgsUrls: this.imgUrls,
-            categoriesIds: [1, 2, 3],
+            categoriesIds: this.selectedCategories,
             effectiveSubstances: this.effectiveSubstances
           }
         };
@@ -123,3 +146,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.category {
+  display: inline-block;
+  margin: 15px 25px 15px 0px;
+}
+</style>

@@ -45,7 +45,7 @@
       </form>
     </div>
 
-    <Loading v-if="isLoading" />
+    <Loading v-if="isLoading" loadingMessage="Retriving categories" />
 
     <DataTable
       :header-fields="headerFields"

@@ -69,13 +69,21 @@ const HomeRoutes = [
         path: "/MyCart",
         component: () => import("@/views/Home/MyCart"),
         name: "MyCart",
-        meta: { title: "Shoryan - MyCart", requiresAuth: true }
+        meta: {
+          title: "Shoryan - MyCart",
+          requiresAuth: true,
+          roles: ["Normal"]
+        }
       },
       {
         path: "/Profile",
         component: () => import("@/views/Home/Profile"),
         name: "Profile",
-        meta: { title: "Shoryan - Test", requiresAuth: true }
+        meta: {
+          title: "Shoryan - Test",
+          requiresAuth: true,
+          roles: ["Normal", "Courier", "Pharmacy"]
+        }
       },
       {
         path: "/Profile/Edit",
@@ -104,6 +112,16 @@ const HomeRoutes = [
         component: () => import("@/views/Panel/ListUsers"),
         name: "listUsers",
         meta: { title: "Panel - Users ", requiresAuth: true, roles: ["Admin"] }
+      },
+      {
+        path: "addUser",
+        component: () => import("@/views/Panel/AddUser"),
+        name: "addUser",
+        meta: {
+          title: "Panel - Add user ",
+          requiresAuth: true,
+          roles: ["Admin"]
+        }
       },
       {
         path: "drugs",

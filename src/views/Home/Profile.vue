@@ -65,7 +65,7 @@
               </div>
               <div id="UpcomingOrders" class="col s12">
                 <div v-for="order in this.upcomingOrders" :key="order.id">
-                  <order :Order="order" />
+                  <order :Order="order" v-on:orderCompleted="orderCompleted" />
                 </div>
               </div>
               <div id="test4" class="col s12">Test 4</div>
@@ -202,6 +202,11 @@ export default {
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
+    },
+    orderCompleted(orderId) {
+      this.upcomingOrders = this.upcomingOrders.filter(
+        order => order.id != orderId
+      );
     }
   }
 };

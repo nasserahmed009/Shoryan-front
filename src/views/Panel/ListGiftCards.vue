@@ -19,7 +19,11 @@
         </div>
       </form>
     </div>
+
+    <Loading v-if="isLoading" loadingMessage="Retriving gift cards" />
+
     <DataTable
+      v-if="!isLoading"
       :header-fields="headerFields"
       :data="tableData || []"
       :css="tableStyles"
@@ -49,6 +53,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       tableData: [],
       tableStyles: tableStyles,
       searchtext: null,
@@ -86,17 +91,20 @@ export default {
     };
   },
   components: {
-    DataTable
+    DataTable,
+    Loading: () => import("@/components/Loading")
   },
   methods: {
     search() {
       alert("search");
     },
     async getAllItems() {
+      this.isLoading = true;
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}GiftCards`
       );
       this.tableData = response.data; //add the listings in array in the table data to be viewed
+      this.isLoading = false;
     },
     async getSearchedGiftCards() {
       const response = await this.axios.get(

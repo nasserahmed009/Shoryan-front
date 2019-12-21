@@ -18,7 +18,7 @@
       </p>
       <hr style="margin:0px 10%; border: 1px solid #ccc" />
       <p style="padding-top:10px">
-        <b>{{ totalPrice }}</b>
+        <b>{{ newTotalPrice }}</b>
       </p>
       <button
         style="margin-top:10px"
@@ -62,7 +62,10 @@ export default {
       return Math.max(0, this.user.balance - this.totalPrice);
     },
     newTotalPrice() {
-      return Math.max(0, this.totalPrice - this.user.balance);
+      return Math.max(
+        0,
+        this.subTotalPrice + this.deliveryFees - this.user.balance
+      );
     },
     cartListingsIds() {
       let cartListingsIds = [];
@@ -84,6 +87,7 @@ export default {
   methods: {
     async checkout() {
       try {
+        this.updateBalance();
         const requestPayload = {
           Order: {
             orderDate: new Date(), //order date
@@ -91,7 +95,7 @@ export default {
             expectedDeliveryDate: new Date(
               new Date().getTime() + 7 * 24 * 60 * 60 * 1000
             ),
-            itemsPrice: this.subTotalPrice,
+            itemsPrice: this.newTotalPrice - this.deliveryFees,
             userId: this.loggedInUser.id,
             deliverPrice: this.deliveryFees,
             discount: 0,
@@ -127,6 +131,14 @@ export default {
       );
       this.user = response.data;
       console.log(this.user.balance);
+    },
+    async updateBalance() {
+      await this.axios.post(
+        `${this.$store.state.baseApiUrl}Balance/` +
+          this.loggedInUser.id +
+          "/" +
+          this.newBalance
+      );
     }
   }
 };
