@@ -45,6 +45,25 @@
           />
           <label for="address" class="active">Email</label>
         </div>
+
+        <div
+          v-if="
+            this.userData.type == 'Normal' || this.userData.type == 'Courier'
+          "
+          class="input-field col s6"
+        >
+          <select id="area" v-model="this.userData.area">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="giza">Giza</option>
+            <option value="haram">Haram</option>
+            <option value="shoubra">Shoubra</option>
+            <option value="nasrCity">Nasr City</option>
+            <option value="heliopolis">Heliopolis</option>
+            <option value="ramsis">Ramsis</option>
+            <option value="dokki">Dokki</option>
+          </select>
+          <label>Area</label>
+        </div>
       </div>
     </div>
 
@@ -95,6 +114,7 @@
           />
           <label for="number" class="active">Phone Number</label>
         </div>
+
         <i
           class="material-icons red-text removePhoneNumber"
           @click.prevent="deletePhoneNumber(phoneNumber, phoneNumberIndex)"
@@ -129,13 +149,20 @@ import { EventBus } from "@/EventBus.js";
 export default {
   mounted() {
     this.getUserData();
+    $(document).ready(function() {
+      $("select").formSelect();
+    });
   },
   data() {
     return {
       userData: null,
-      phoneNumbers: ["1223342", "12312321", "1231232"],
+      phoneNumbers: [],
       newPhoneNumber: ""
     };
+  },
+  updated() {
+    EventBus.$emit("clearNotifications"); // to clear any existing notifications
+    $("select").formSelect();
   },
   computed: {
     loggedInUser() {
@@ -144,27 +171,36 @@ export default {
   },
   methods: {
     async getUserData() {
+      this.isLoading = true;
       try {
         const response = await this.axios.get(
           `${this.$store.state.baseApiUrl}user/${this.loggedInUser.id}`
         );
-
         this.userData = response.data;
       } catch (err) {
         EventBus.$emit("errorNotification", "Error occured, try again later");
       }
+      this.isLoading = false;
     },
     async addPhoneNumber() {
-      await this.axios.post(
-        `${this.$store.state.baseApiUrl}userPhoneNumber/${this.loggedInUser.id}/${this.newPhoneNumber}`
-      );
-      this.userData.phoneNumbers.push(this.newPhoneNumber);
-      this.newPhoneNumber = "";
+      try {
+        await this.axios.post(
+          `${this.$store.state.baseApiUrl}userPhoneNumber/${this.loggedInUser.id}/${this.newPhoneNumber}`
+        );
+        this.userData.phoneNumbers.push(this.newPhoneNumber);
+        this.newPhoneNumber = "";
+      } catch (err) {
+        EventBus.$emit("errorNotification", err.response.data);
+      }
     },
     async deletePhoneNumber(phoneNumber, phoneNumberIndex) {
-      await this.axios.delete(
-        `${this.$store.state.baseApiUrl}deletePhoneNumber/${this.loggedInUser.id}/${phoneNumber}`
-      );
+      try {
+        await this.axios.delete(
+          `${this.$store.state.baseApiUrl}deletePhoneNumber/${this.loggedInUser.id}/${phoneNumber}`
+        );
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
 
       this.userData.phoneNumbers.splice(phoneNumberIndex, 1);
     },
@@ -174,10 +210,14 @@ export default {
       };
 
       console.log(requestPayload);
-      await this.axios.put(
-        `${this.$store.state.baseApiUrl}user`,
-        requestPayload
-      );
+      try {
+        await this.axios.put(
+          `${this.$store.state.baseApiUrl}user`,
+          requestPayload
+        );
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
     }
   }
 };
