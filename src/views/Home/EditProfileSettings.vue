@@ -96,27 +96,29 @@
       <h5 class="bold">Security Information</h5>
       <hr />
       <div class="row">
+        <div class="input-field col s6">
+          <input
+            id="oldpassword"
+            type="password"
+            class="validate"
+            autocomplete="off"
+            v-model="oldPassword"
+            required
+          />
+          <label for="oldpassword" class="active">Password</label>
+        </div>
         <!-- editing password -->
         <div class="input-field col s6">
           <input
-            id="password"
+            id="newpassword"
             type="password"
             class="validate"
-            autocomplete="no"
-            v-model="userData.password"
+            autocomplete="off"
+            v-model="newPassword"
           />
-          <label for="password" class="active">Password</label>
+          <label for="newpassword" class="active">New Password</label>
         </div>
         <!-- confirmimg password -->
-        <!-- <div class="input-field col s6">
-          <input
-            id="password"
-            type="password"
-            class="validate"
-            v-model="userData.confirmPassword"
-          />
-          <label for="password">Confirm Password</label>
-        </div> -->
       </div>
     </div>
 
@@ -182,7 +184,9 @@ export default {
     return {
       userData: null,
       phoneNumbers: [],
-      newPhoneNumber: ""
+      newPhoneNumber: "",
+      oldPassword: null,
+      newPassword: null
     };
   },
   updated() {
@@ -229,6 +233,7 @@ export default {
           `${this.$store.state.baseApiUrl}user/${this.loggedInUser.id}`
         );
         this.userData = response.data;
+        this.userData.password = null;
       } catch (err) {
         EventBus.$emit("errorNotification", "Error occured, try again later");
       }
@@ -264,8 +269,15 @@ export default {
       }
 
       const requestPayload = {
-        User_Details: this.userData,
-        NormalUsers: this.userData
+        id: this.userData.id,
+        name: this.userData.name,
+        email: this.userData.email,
+        password: this.oldPassword,
+        newpassword: this.newPassword,
+        address: this.userData.address,
+        imgUrl: this.userData.imgUrl,
+        area: this.userData.area,
+        type: this.userData.type
       };
 
       console.log(requestPayload);
@@ -277,6 +289,7 @@ export default {
         this.userData.img_url = this.userData.imgUrl;
         this.$store.commit("setUser", this.userData);
         localStorage.setItem("user", JSON.stringify(this.userData));
+        EventBus.$emit("successNotification", "Data edited successfully");
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
