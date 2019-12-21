@@ -155,7 +155,15 @@ export default {
         }
       };
 
-      this.axios.post(`${this.$store.state.baseApiUrl}user`, credentials);
+      try {
+        await this.axios.post(
+          `${this.$store.state.baseApiUrl}user`,
+          credentials
+        );
+        this.$router.push("/"); //return to the home page
+      } catch (err) {
+        EventBus.$emit("errorNotification", err.response.data); //error notification if  error occured
+      }
     }
   }
 };

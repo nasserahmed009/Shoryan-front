@@ -30,11 +30,11 @@
           <form @submit.prevent="addListing">
             <div class="input-field col s12">
               <select v-model="drugid">
-                <option value="" disabled selected>Drugs</option>
+                <option disabled selected>Drugs</option>
                 <option
                   v-for="drug in this.drugs"
                   :key="drug.id"
-                  value="drug.id"
+                  :value="drug.id"
                   >{{ drug.name }}</option
                 >
               </select>
@@ -45,7 +45,7 @@
                 type="text"
                 class="datepicker"
                 placeholder="Expiry Date"
-                :value="expiryDate"
+                :value="expirationDate"
               />
             </div>
 
@@ -64,7 +64,7 @@
                 id="shreet"
                 type="number"
                 class="validate"
-                v-model="shreet"
+                v-model="shreets"
               />
               <label for="shreet">Shreet</label>
             </div>
@@ -110,37 +110,38 @@ export default {
       $(".materialboxed").materialbox();
     });
   },
+  updated() {
+    $("select").formSelect();
+  },
   data() {
     return {
       drugs: null,
       selectedImagesPaths: [],
       drugid: null,
       userid: this.$store.getters.loggedIn ? this.$store.state.user.id : null,
-      expiryDate: null,
-      shreet: null,
-      elbas: null,
+      expirationDate: null,
+      shreets: 0,
+      elbas: 0,
       price: null
     };
   },
   methods: {
     setExpiryDate(date) {
-      this.expiryDate = date;
+      this.expirationDate = date;
     },
-
     async getDrugs() {
       const response = await this.axios.get(
         `${this.$store.state.baseApiUrl}drugs`
       );
 
       this.drugs = response.data;
-      $("select").formSelect();
     },
     addListing() {
       const listingData = {
         drugId: this.drugid,
         userid: this.userid,
-        expiryDate: this.expiryDate,
-        shreet: this.shreet,
+        expirationDate: this.expirationDate,
+        shreets: this.shreets,
         elbas: this.elbas,
         price: this.price
       };
