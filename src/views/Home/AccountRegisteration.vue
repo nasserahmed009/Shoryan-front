@@ -82,15 +82,21 @@
             </select>
             <label>Gender</label>
           </div>
-          <div v-if="type == 'Courier'" class="input-field col s12">
-            <input
-              id="area"
-              type="text"
-              class="validate"
-              required
-              v-model="area"
-            />
-            <label for="address">Area</label>
+          <div
+            v-if="type == 'Normal' || type == 'Courier'"
+            class="input-field col s12"
+          >
+            <select id="area" v-model="area">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="giza">Giza</option>
+              <option value="haram">Haram</option>
+              <option value="shoubra">Shoubra</option>
+              <option value="nasrCity">Nasr City</option>
+              <option value="heliopolis">Heliopolis</option>
+              <option value="ramsis">Ramsis</option>
+              <option value="dokki">Dokki</option>
+            </select>
+            <label>Area</label>
           </div>
 
           <button
@@ -151,7 +157,8 @@ export default {
           area: this.area
         },
         NormalUsers: {
-          gender: this.gender
+          gender: this.gender,
+          area: this.area
         }
       };
 
@@ -160,7 +167,7 @@ export default {
           `${this.$store.state.baseApiUrl}user`,
           credentials
         );
-        this.$router.push("/"); //return to the home page
+        this.$router.push("/Login"); //return to the home page
       } catch (err) {
         EventBus.$emit("errorNotification", err.response.data); //error notification if  error occured
       }
