@@ -38,7 +38,7 @@
         Similar Drugs
       </h3>
       <div class="row">
-        <h2 v-if="Object.keys(object).length == null">
+        <h2 v-if="similarDrugs.length == 1">
           No similar drugs on website yet
         </h2>
         <div v-for="drug in similarDrugs" :key="drug.id">
