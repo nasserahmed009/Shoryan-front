@@ -3,32 +3,13 @@
     <Loading v-if="isLoading" />
     <div class="container" v-if="!isLoading">
       <div class="row">
-        <div class="col m4 s12 overflowhidden ">
-          <div class="mainImage">
-            <img
-              src="https://216348-656719-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/02/03-antinal-egypt-compressor.jpg"
-              alt=""
-            />
-          </div>
-          <div class="otherImages flex">
-            <img
-              src="https://216348-656719-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/02/03-antinal-egypt-compressor.jpg"
-              alt=""
-            />
-            <img
-              src="https://216348-656719-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/02/03-antinal-egypt-compressor.jpg"
-              alt=""
-            />
-            <img
-              src="https://216348-656719-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/02/03-antinal-egypt-compressor.jpg"
-              alt=""
-            />
-          </div>
+        <div class="col m4 s12 overflowhidden" style="padding-top:30px">
+          <multiImageViewer :imagesPaths="imagesPaths" />
         </div>
         <div class="col m8 s12">
-          <h4 class="bold">Product Name</h4>
+          <h4 class="bold">{{ itemData.drugName }}</h4>
           <div class="itemSection itemDescriptionSection">
-            <h6 class="bold">Description :</h6>
+            <h6 class="bold">Description:</h6>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
               quis, vero impedit sed eaque explicabo enim, optio exercitationem
@@ -40,21 +21,22 @@
             <a class="btn-floating btn-small waves-effect waves-light red">
               <i class="material-icons">attach_money</i>
             </a>
-            <h6 class="inline verticalMiddle bold">{{ itemData.price }}</h6>
+            <h6 class="inline verticalMiddle bold">{{ itemData.price }} EGP</h6>
           </div>
-          <h6><b>Shreets : </b> {{ itemData.shreets }}</h6>
-          <h6><b>3elbas : </b> {{ itemData.elbas }}</h6>
-          <h6><b>Expiration date : </b> {{ itemData.expirationDate }}</h6>
+          <h6><b>Seller: </b> {{ itemData.sellerName }}</h6>
+          <h6><b>Shreets: </b> {{ itemData.shreets }}</h6>
+          <h6><b>Elbas: </b> {{ itemData.elbas }}</h6>
+          <h6><b>Expiration Date: </b> {{ itemData.expirationDate }}</h6>
           <div class="itemSection">
             <a class="waves-effect waves-light btn"
-              ><i class="material-icons left">add</i>Add to card</a
+              ><i class="material-icons left">add</i>Add to cart</a
             >
           </div>
         </div>
       </div>
 
       <h3 class="bold col s10 nomargin" style="color=black">
-        Sellers
+        Other Sellers
       </h3>
 
       <SellerCard v-for="i in 6" :key="i" class="col s6" />
@@ -89,20 +71,31 @@
 }
 </style>
 <script>
+import { EventBus } from "@/EventBus.js";
 export default {
   mounted() {
     this.getItemData(this.itemId);
+    this.getListingImages(this.itemId);
   },
   data() {
     return {
-      itemData: null,
+      itemData: {
+        drugName: null,
+        sellerName: null,
+        shreets: null,
+        elbas: null,
+        expirationDate: null
+      },
+      imagesUrls: null,
+      imagesPaths: [],
       isLoading: false
     };
   },
   components: {
     SellerCard: () => import("@/components/Home/SellerCard"),
     ItemCard: () => import("@/components/Home/ItemCard"),
-    Loading: () => import("@/components/Loading")
+    Loading: () => import("@/components/Loading"),
+    MultiImageViewer: () => import("@/components/Home/MultiImageViewer")
   },
   props: {
     //this view expects to get the item id to get its data
@@ -116,11 +109,32 @@ export default {
     async getItemData(itemId) {
       this.isLoading = true;
 
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}Listings/${itemId}`
-      );
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}Listings/${itemId}`
+        );
+        this.itemData = response.data;
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
 
-      this.itemData = response.data[0];
+      this.isLoading = false;
+    },
+    async getListingImages(itemId) {
+      this.isLoading = true;
+
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}ListingsImgs/${itemId}`
+        );
+        this.imagesUrls = response.data;
+
+        this.imagesPaths = this.imagesUrls.map(x => {
+          return x.url;
+        });
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
 
       this.isLoading = false;
     }

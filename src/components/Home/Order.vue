@@ -79,7 +79,6 @@ export default {
   mounted() {
     $(".modal").modal();
     this.getListingsInOrder();
-    this.normalUserID = this.userid;
   },
 
   data() {
@@ -89,7 +88,7 @@ export default {
       listings: null,
       subject: null,
       message: null,
-      normalUserID: null,
+      normalUserID: this.Order.userId,
       courierID: this.Order.courierId,
       fromCourierToUser: null
     };
