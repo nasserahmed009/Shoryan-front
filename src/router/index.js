@@ -62,7 +62,7 @@ const HomeRoutes = [
         path: "/Logout",
         component: () => import("@/views/Home/Logout.vue"),
         name: "Logout",
-        meta: { title: "Shoryan - Logout", requiresAut: true }
+        meta: { title: "Shoryan - Logout", requiresAuth: true }
       },
 
       {
@@ -89,6 +89,12 @@ const HomeRoutes = [
         path: "/Profile/Edit",
         component: () => import("@/views/Home/EditProfileSettings"),
         name: "EditProfile",
+        meta: { title: "Shoryan - Edit profile", requiresAuth: true }
+      },
+      {
+        path: "/testupload",
+        component: () => import("@/components/Home/test"),
+        name: "testupload",
         meta: { title: "Shoryan - Edit profile", requiresAuth: true }
       }
     ]

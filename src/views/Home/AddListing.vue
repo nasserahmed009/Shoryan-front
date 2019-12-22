@@ -10,8 +10,9 @@
                 <span>File</span>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept=".jpg"
                   multiple
+                  ref="listingsImagesInput"
                   @change="parseImgs($event)"
                 />
               </div>
@@ -148,14 +149,20 @@ export default {
         price: this.price
       };
       try {
-        var listingid = await this.axios.post(
+        let response = await this.axios.post(
           `${this.$store.state.baseApiUrl}listings`,
           listingData
         );
-        this.$router.push({
-          name: "SingleItem",
-          params: { itemId: listingid.data }
-        }); //return to the home page
+
+        // console.log(listingid);
+        console.log(this.$refs.listingsImagesInput.files);
+
+        await this.uploadListingsImages(
+          this.$refs.listingsImagesInput.files,
+          response.data
+        );
+
+        EventBus.$emit("successNotification", "Listing added successfully");
       } catch (err) {
         EventBus.$emit("errorNotification", err.response.data); //error notification if  error occured
       }
@@ -175,6 +182,23 @@ export default {
 
         this.selectedImagesPaths = SelectedImagesPaths;
       }
+    },
+    async uploadListingsImages(files, listingId) {
+      if (files.length == 0) return;
+
+      let formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("profilePic", files[i], i + ".jpg");
+      }
+
+      // for (var pair of formData.entries()) {
+      //   console.log(pair[0] + ", " + pair[1]);
+      // }
+      const response = await this.axios.post(
+        `${this.$store.state.baseApiUrl}uploadListings/${listingId}`,
+        formData
+      );
+      console.log(response);
     }
   }
 };

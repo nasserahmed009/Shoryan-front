@@ -3,11 +3,7 @@
     <h1>test upload</h1>
 
     <h1>File Upload Using Angular 5 and ASP.NET Core 2.1</h1>
-    <input
-      type="file"
-      multiple
-      @change="uploadProfilePic($event.target.files[0])"
-    />
+    <input type="file" multiple @change="upload($event.target.files)" />
     <br />
   </div>
 </template>
@@ -16,17 +12,18 @@
 export default {
   methods: {
     async upload(files) {
-      console.log(files);
       if (files.length == 0) return;
+
       let formData = new FormData();
-      for (let file of files) {
-        formData.append("profilePic", file, "1.jpg");
+      for (let i = 0; i < files.length; i++) {
+        formData.append("profilePic", files[i], i + ".jpg");
       }
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
+
+      // for (var pair of formData.entries()) {
+      //   console.log(pair[0] + ", " + pair[1]);
+      // }
       const response = await this.axios.post(
-        `${this.$store.state.baseApiUrl}upload`,
+        `${this.$store.state.baseApiUrl}uploadListings/1`,
         formData
       );
       console.log(response);
