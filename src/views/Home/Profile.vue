@@ -62,7 +62,7 @@
                   <a href="#UpcomingOrders">Upcoming orders</a>
                 </li>
 
-                <li class="tab col s3"><a href="#test4">Account balance</a></li>
+                <li class="tab col s3"><a href="#statistics">Statistics</a></li>
               </ul>
               <div id="PastOrders" class="col s12">
                 <div v-for="order in this.pastOrders" :key="order.id">
@@ -74,7 +74,9 @@
                   <order :Order="order" v-on:orderCompleted="orderCompleted" />
                 </div>
               </div>
-              <div id="test4" class="col s12">Test 4</div>
+              <div id="statistics" class="col s12">
+                <AreasDeliverToByCourierGraph />
+              </div>
             </div>
             <div v-else>
               <ul class="tabs">
@@ -167,7 +169,9 @@ export default {
     Loading: () => import("@/components/Loading"),
     order: () => import("@/components/Home/Order"),
     MoneyGainedInYearChart: () =>
-      import("@/components/Home/MoneyGainedInYearChart")
+      import("@/components/Home/MoneyGainedInYearChart"),
+    AreasDeliverToByCourierGraph: () =>
+      import("@/components/Home/AreasDeliverToByCourierGraph")
   },
   computed: {
     baseUrl() {
