@@ -16,6 +16,18 @@ const HomeRoutes = [
         meta: { title: "Shoryan - Index" }
       },
       {
+        path: "/AllDrugs",
+        component: () => import("@/views/Home/AllDrugs"),
+        name: "AllDrugs",
+        meta: { title: "Shoryan - AllDrugs" }
+      },
+      {
+        path: "/AllCategories",
+        component: () => import("@/views/Home/AllCategories"),
+        name: "AllCategories",
+        meta: { title: "Shoryan - AllCategories" }
+      },
+      {
         path: "category/:categoryId",
         component: () => import("@/views/Home/SingleCategory"),
         name: "SingleCategory",
