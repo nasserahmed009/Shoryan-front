@@ -1,6 +1,7 @@
 <template>
   <div class="row" style="margin-bottom: 0px">
-    <div class="center sidebar col l3 m4 s12 grey lighten-2 flex">
+    <Loading v-if="!user" />
+    <div class="center sidebar col l3 m4 s12 grey lighten-2 flex" v-if="user">
       <div class="userInfo">
         <a href="#user">
           <img
@@ -10,7 +11,7 @@
             height="150px"
           />
         </a>
-        <h5>{{ user.name }}</h5>
+        <h5 class="bold">{{ user.name }}</h5>
         <h6>Rating: {{ user.rating }}</h6>
         <h6 class="location-header">
           <i class="tiny location-icon material-icons">location_on</i>
@@ -18,7 +19,12 @@
         </h6>
         <h6>Joined {{ user.registrationDate }}</h6>
         <div v-if="this.userType == 'Normal'">
-          <h6>Balance = {{ user.balance }}</h6>
+          <h6 style="margin: 15px 0px">
+            <i class="material-icons verticalMiddle" style="margin: 0px 15px"
+              >account_balance_wallet</i
+            >
+            <b>Balance : {{ user.balance }}</b>
+          </h6>
           <form @submit.prevent="redeem">
             <div class="input-field col s10 " style="margin-left:40px">
               <input
@@ -43,7 +49,7 @@
         <i class="material-icons right">settings</i>
       </router-link>
     </div>
-    <div class="col l9 m8 s">
+    <div class="col l9 m8 s" v-if="user">
       <div class="container">
         <div class="row">
           <div class="col s12">
@@ -83,7 +89,8 @@
                 </li>
               </ul>
               <div id="ActiveListings" class="col s12">
-                <div class="row">
+                <Loading v-if="loadingActiveListing" />
+                <div class="row" v-if="!loadingActiveListing">
                   <div
                     class="col m4 s12"
                     v-for="item in ActiveListings"
@@ -94,8 +101,11 @@
                 </div>
               </div>
               <div id="PastOrders" class="col s12">
-                <div v-for="order in this.userPastOrders" :key="order.id">
-                  <order :Order="order" />
+                <Loading v-if="loadingUserPastOrders" />
+                <div v-if="!loadingUserPastOrders">
+                  <div v-for="order in this.userPastOrders" :key="order.id">
+                    <order :Order="order" />
+                  </div>
                 </div>
               </div>
               <div id="Statistics" class="col s12">
@@ -112,16 +122,23 @@
 <script>
 import { EventBus } from "@/EventBus.js";
 export default {
-  mounted() {
+  async mounted() {
     $(document).ready(function() {
       $("select").formSelect();
       $(".tabs").tabs();
     });
-    this.getUser();
-    this.getUpcomingOrders();
-    this.getPastOrders();
-    this.getActiveListings();
-    this.getNormalUserPastOrders();
+
+    await this.getUser();
+
+    if (this.user.type == "Normal") {
+      //for normal user
+      await this.getActiveListings();
+      await this.getNormalUserPastOrders();
+    } else if (this.user.type == "Courier") {
+      //for couriers
+      await this.getUpcomingOrders();
+      await this.getPastOrders();
+    }
   },
   updated() {
     $(".tabs").tabs();
@@ -135,11 +152,16 @@ export default {
       pastOrders: null,
       ActiveListings: null,
       userPastOrders: null,
-      giftCardCode: null
+      giftCardCode: null,
+      loadingActiveListing: false,
+      loadingUserPastOrders: false,
+      loadingUpcommingOrders: false,
+      loadingPastOrders: false
     };
   },
   components: {
     ItemCard: () => import("@/components/Home/ItemCard"),
+    Loading: () => import("@/components/Loading"),
     order: () => import("@/components/Home/Order"),
     MoneyGainedInYearChart: () =>
       import("@/components/Home/MoneyGainedInYearChart")
@@ -158,35 +180,58 @@ export default {
       this.user = response.data;
     },
     async getUpcomingOrders() {
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}UpcommingOrders/` + this.userid
-      );
-      this.upcomingOrders = response.data;
-      console.log(this.upcomingOrders);
+      this.loadingUpcommingOrders = true;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}UpcommingOrders/` + this.userid
+        );
+        this.upcomingOrders = response.data;
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured,try again later");
+      }
+      this.loadingUpcommingOrders = false;
     },
     async getPastOrders() {
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}PastOrders/` + this.userid
-      );
+      this.loadingPastOrders = true;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}PastOrders/` + this.userid
+        );
 
-      this.pastOrders = response.data;
-      console.log(this.pastOrders);
+        this.pastOrders = response.data;
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured,try again later");
+      }
+
+      this.loadingPastOrders = false;
     },
+
     async getActiveListings() {
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}ActiveListings/` + this.userid
-      );
-
-      this.ActiveListings = response.data;
-      console.log(this.ActiveListings);
+      this.loadingActiveListing = true;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}ActiveListings/` + this.userid
+        );
+        this.ActiveListings = response.data;
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured,try again later");
+      }
+      this.loadingActiveListing = false;
     },
-    async getNormalUserPastOrders() {
-      const response = await this.axios.get(
-        `${this.$store.state.baseApiUrl}OrdersOfUser/` + this.userid
-      );
 
-      this.userPastOrders = response.data;
-      console.log(this.userPastOrders);
+    async getNormalUserPastOrders() {
+      this.loadingUserPastOrders = true;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}OrdersOfUser/` + this.userid
+        );
+        this.userPastOrders = response.data;
+        console.log(this.userPastOrders);
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured, try again later");
+      }
+
+      this.loadingUserPastOrders = false;
     },
     async redeem() {
       EventBus.$emit("clearNotifications"); // to clear any existing notifications
@@ -221,6 +266,10 @@ export default {
   /* min-height: 100vh; */
   flex-direction: column;
   justify-content: space-between;
+  background-image: url(https://i.ytimg.com/vi/AeP7CVDEQGg/maxresdefault.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .cartItem {
   margin: 15px 0px;
@@ -235,5 +284,6 @@ export default {
 }
 .userAvatar {
   object-fit: cover;
+  border: 2px solid #eee;
 }
 </style>

@@ -1,5 +1,17 @@
 <template>
   <div class="homeLayout">
+    <div
+      class="fixed-action-btn"
+      v-if="loggedInUser.type == 'Courier' || loggedInUser.type == 'Normal'"
+    >
+      <router-link
+        class="btn-floating btn-large red"
+        :to="{ name: 'AddListing' }"
+      >
+        <i class="large material-icons">add</i>
+      </router-link>
+    </div>
+
     <Navbar />
     <div>
       <!-- notifications -->
@@ -68,6 +80,11 @@ export default {
     };
   },
 
+  computed: {
+    loggedInUser() {
+      return this.$store.state.user;
+    }
+  },
   methods: {
     showSuccessNotification(notification) {
       this.successNotifications.push(notification);
@@ -110,7 +127,7 @@ export default {
 .homeLayout {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 261px;
+  padding-bottom: 231px;
 }
 
 .footer {
