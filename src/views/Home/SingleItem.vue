@@ -41,14 +41,14 @@
 
       <SellerCard v-for="i in 6" :key="i" class="col s6" />
 
-      <h3 class="bold col s10 nomargin" style="color=black">
+      <!-- <h3 class="bold col s10 nomargin" style="color=black">
         Similar Products
       </h3>
       <div class="row">
         <div class="col m3 s12" v-for="i in 4" :key="i">
           <ItemCard />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -93,7 +93,7 @@ export default {
   },
   components: {
     SellerCard: () => import("@/components/Home/SellerCard"),
-    ItemCard: () => import("@/components/Home/ItemCard"),
+    // ItemCard: () => import("@/components/Home/ItemCard"),
     Loading: () => import("@/components/Loading"),
     MultiImageViewer: () => import("@/components/Home/MultiImageViewer")
   },
@@ -129,9 +129,9 @@ export default {
         );
         this.imagesUrls = response.data;
 
-        this.imagesPaths = this.imagesUrls.map(x => {
-          return x.url;
-        });
+        this.imagesPaths = this.imagesUrls.map(
+          x => `${this.$store.state.baseUrl}${x.url}`
+        );
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
