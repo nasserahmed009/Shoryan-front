@@ -38,6 +38,9 @@
         Similar Drugs
       </h3>
       <div class="row">
+        <h2 v-if="Object.keys(object).length == null">
+          No similar drugs on website yet
+        </h2>
         <div v-for="drug in similarDrugs" :key="drug.id">
           <div class="col m3 s12" v-if="drug.id != itemData.drugId">
             <DrugCard :drug="drug" />
