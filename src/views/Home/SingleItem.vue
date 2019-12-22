@@ -37,7 +37,7 @@
       <h3 class="bold col s10 nomargin" style="color=black">
         Similar Drugs
       </h3>
-      <div class="row">
+      <div class="row" v-if="similarDrugs">
         <h2 v-if="similarDrugs.length == 1">
           No similar drugs on website yet
         </h2>
@@ -150,6 +150,7 @@ export default {
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
+      this.isLoading = false;
     }
   }
 };
