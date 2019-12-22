@@ -37,7 +37,7 @@ const HomeRoutes = [
       {
         path: "item/:itemId",
         component: () => import("@/views/Home/SingleItem"),
-        name: " ",
+        name: "SingleItem",
         props: true,
         meta: { title: "Shoryan - SingleItem" }
       },
