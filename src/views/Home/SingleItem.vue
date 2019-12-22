@@ -34,21 +34,16 @@
           </div>
         </div>
       </div>
-
       <h3 class="bold col s10 nomargin" style="color=black">
-        Other Sellers
-      </h3>
-
-      <SellerCard v-for="i in 6" :key="i" class="col s6" />
-
-      <!-- <h3 class="bold col s10 nomargin" style="color=black">
-        Similar Products
+        Similar Drugs
       </h3>
       <div class="row">
-        <div class="col m3 s12" v-for="i in 4" :key="i">
-          <ItemCard />
+        <div v-for="drug in similarDrugs" :key="drug.id">
+          <div class="col m3 s12" v-if="drug.id != itemData.drugId">
+            <DrugCard :drug="drug" />
+          </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -80,6 +75,7 @@ export default {
   data() {
     return {
       itemData: {
+        drugId: null,
         drugName: null,
         sellerName: null,
         shreets: null,
@@ -88,12 +84,14 @@ export default {
       },
       imagesUrls: null,
       imagesPaths: [],
-      isLoading: false
+      isLoading: false,
+      similarDrugs: null
     };
   },
   components: {
-    SellerCard: () => import("@/components/Home/SellerCard"),
-    // ItemCard: () => import("@/components/Home/ItemCard"),
+    //SellerCard: () => import("@/components/Home/SellerCard"),
+    //ItemCard: () => import("@/components/Home/ItemCard"),
+    DrugCard: () => import("@/components/Home/DrugCard"),
     Loading: () => import("@/components/Loading"),
     MultiImageViewer: () => import("@/components/Home/MultiImageViewer")
   },
@@ -114,6 +112,7 @@ export default {
           `${this.$store.state.baseApiUrl}Listings/${itemId}`
         );
         this.itemData = response.data;
+        this.getSimilarDrugs();
       } catch (error) {
         EventBus.$emit("errorNotification", error.response.data);
       }
@@ -137,6 +136,17 @@ export default {
       }
 
       this.isLoading = false;
+    },
+    async getSimilarDrugs() {
+      this.isLoading = true;
+      try {
+        const response = await this.axios.get(
+          `${this.$store.state.baseApiUrl}similarDrugs/${this.itemData.drugId}`
+        );
+        this.similarDrugs = response.data;
+      } catch (error) {
+        EventBus.$emit("errorNotification", error.response.data);
+      }
     }
   }
 };

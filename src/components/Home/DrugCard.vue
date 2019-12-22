@@ -10,7 +10,7 @@
         <h5>{{ drug.name }}</h5>
         <!-- </router-link> -->
 
-        <p><b>Official Price : </b> {{ drug.officialPrice }}</p>
+        <p><b>Official Price: </b> {{ drug.officialPrice }}</p>
       </div>
       <div class="card-action">
         <router-link
