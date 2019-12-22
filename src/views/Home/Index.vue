@@ -15,6 +15,16 @@
           <DrugCard :drug="drug" />
         </div>
       </div>
+      <div style="margin-right:10px">
+        <router-link
+          class="settings-button btn waves-effect waves-light right"
+          :to="{ name: 'AllDrugs' }"
+        >
+          View All
+          <i class="material-icons right">send</i>
+        </router-link>
+      </div>
+      <br />
 
       <h4 class="bold">Categories</h4>
       <div class="row" v-if="categories">
@@ -25,6 +35,15 @@
         >
           <CategoryCard :category="category" />
         </div>
+      </div>
+      <div style="margin-right:10px; padding-bottom:60px">
+        <router-link
+          class="settings-button btn waves-effect waves-light right"
+          :to="{ name: 'AllCategories' }"
+        >
+          View All
+          <i class="material-icons right">send</i>
+        </router-link>
       </div>
     </div>
   </div>
