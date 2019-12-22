@@ -27,11 +27,24 @@
           }}
         </span>
       </div>
+
+      <div class="" slot="actions" slot-scope="props">
+        <button
+          class="btn-floating waves-effect waves-light tooltipped green"
+          data-position="top"
+          data-tooltip="Delete drug"
+          @click="markAsCompleted(props.rowData.id, props.rowIndex)"
+        >
+          <i class="large material-icons bold">check</i>
+        </button>
+      </div>
     </DataTable>
   </div>
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+
 import { DataTable } from "v-datatable-light";
 import tableStyles from "@/assets/js/TableStyles";
 export default {
@@ -70,6 +83,11 @@ export default {
         {
           label: "Status",
           name: "status"
+        },
+        {
+          label: "actions",
+          name: "actions",
+          customElement: "actions"
         }
       ]
     };
@@ -98,6 +116,22 @@ export default {
         `${this.$store.state.baseApiUrl}searchComplaints/` + this.searchtext
       );
       this.tableData = response.data; //add the listings in array in the table data to be viewed
+    },
+    async markAsCompleted(complaintId, complaintIndex) {
+      try {
+        await this.axios.post(
+          `${this.$store.state.baseApiUrl}answerComplaint/${complaintId}`,
+          {}
+        );
+        EventBus.$emit(
+          "successNotification",
+          "Complaint addressed successfully"
+        );
+
+        this.tableData[complaintIndex].status = "Addressed";
+      } catch (err) {
+        EventBus.$emit("errorNotification", "Error occured, try again later");
+      }
     }
   },
   watch: {
