@@ -3,7 +3,7 @@
     <div v-if="loggedInUser">
       <div
         class="fixed-action-btn"
-        v-if="loggedInUser.type == 'Courier' || loggedInUser.type == 'Normal'"
+        v-if="loggedInUser.type == 'Pharmacy' || loggedInUser.type == 'Normal'"
       >
         <router-link
           class="btn-floating btn-large red"
