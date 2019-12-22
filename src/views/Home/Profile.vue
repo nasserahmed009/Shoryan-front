@@ -11,16 +11,16 @@
           />
         </a>
         <h5>{{ user.name }}</h5>
-        <h6>{{ user.rating }}</h6>
+        <h6>Rating: {{ user.rating }}</h6>
         <h6 class="location-header">
           <i class="tiny location-icon material-icons">location_on</i>
           {{ user.address }}
         </h6>
         <h6>Joined {{ user.registrationDate }}</h6>
         <div v-if="this.userType == 'Normal'">
-          <h6>Balance= {{ user.balance }}</h6>
+          <h6>Balance = {{ user.balance }}</h6>
           <form @submit.prevent="redeem">
-            <div class="input-field col s5" style="margin-left:30%">
+            <div class="input-field col s10 " style="margin-left:40px">
               <input
                 id="code"
                 type="text"
