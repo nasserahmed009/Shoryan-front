@@ -19,7 +19,7 @@
         </h6>
         <h6>Joined {{ user.registrationDate }}</h6>
         <div v-if="this.userType == 'Normal'">
-          <h6 style="margin: 15px 0px">
+          <h6 style="margin: 15px 0px ">
             <i class="material-icons verticalMiddle" style="margin: 0px 15px"
               >account_balance_wallet</i
             >
@@ -81,7 +81,7 @@
                 <li class="tab col s3">
                   <a class="active" href="#ActiveListings">Active Listings</a>
                 </li>
-                <li class="tab col s3">
+                <li class="tab col s3" v-if="user.type == 'Normal'">
                   <a href="#PastOrders">past orders</a>
                 </li>
                 <li class="tab col s3">
@@ -100,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div id="PastOrders" class="col s12">
+              <div id="PastOrders" class="col s12" v-if="user.type == 'Normal'">
                 <Loading v-if="loadingUserPastOrders" />
                 <div v-if="!loadingUserPastOrders">
                   <div v-for="order in this.userPastOrders" :key="order.id">
@@ -138,6 +138,9 @@ export default {
       //for couriers
       await this.getUpcomingOrders();
       await this.getPastOrders();
+    } else if (this.user.type == "Pharmacy") {
+      //for pharmacies
+      await this.getActiveListings();
     }
   },
   updated() {
