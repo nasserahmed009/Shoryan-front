@@ -129,14 +129,14 @@ export default {
 .homeLayout {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 231px;
+  padding-bottom: 209px;
 }
 
 .footer {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  height: 231px;
+  height: 209px;
   // margin-top: 100px;
 }
 </style>

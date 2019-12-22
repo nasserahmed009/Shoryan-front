@@ -65,13 +65,32 @@
                 <li class="tab col s3"><a href="#statistics">Statistics</a></li>
               </ul>
               <div id="PastOrders" class="col s12">
-                <div v-for="order in this.pastOrders" :key="order.id">
-                  <order :Order="order" />
+                <Loading v-if="loadingPastOrders" />
+
+                <div v-if="!loadingPastOrders">
+                  <p v-if="pastOrders == null || pastOrders.length == 0">
+                    No past orders at the moment
+                  </p>
+                  <div v-for="order in this.pastOrders" :key="order.id">
+                    <order :Order="order" />
+                  </div>
                 </div>
               </div>
               <div id="UpcomingOrders" class="col s12">
-                <div v-for="order in this.upcomingOrders" :key="order.id">
-                  <order :Order="order" v-on:orderCompleted="orderCompleted" />
+                <Loading v-if="loadingUpcommingOrders" />
+
+                <div v-if="!loadingUpcommingOrders">
+                  <p
+                    v-if="upcomingOrders == null || upcomingOrders.length == 0"
+                  >
+                    No upcomming orders at the moment
+                  </p>
+                  <div v-for="order in this.upcomingOrders" :key="order.id">
+                    <order
+                      :Order="order"
+                      v-on:orderCompleted="orderCompleted"
+                    />
+                  </div>
                 </div>
               </div>
               <div id="statistics" class="col s12">
@@ -93,6 +112,11 @@
               <div id="ActiveListings" class="col s12">
                 <Loading v-if="loadingActiveListing" />
                 <div class="row" v-if="!loadingActiveListing">
+                  <p
+                    v-if="ActiveListings == null || ActiveListings.length == 0"
+                  >
+                    No past orders at the moment
+                  </p>
                   <div
                     class="col m4 s12"
                     v-for="item in ActiveListings"
@@ -105,6 +129,11 @@
               <div id="PastOrders" class="col s12" v-if="user.type == 'Normal'">
                 <Loading v-if="loadingUserPastOrders" />
                 <div v-if="!loadingUserPastOrders">
+                  <p
+                    v-if="userPastOrders == null || userPastOrders.length == 0"
+                  >
+                    No past orders at the moment
+                  </p>
                   <div v-for="order in this.userPastOrders" :key="order.id">
                     <order :Order="order" />
                   </div>
