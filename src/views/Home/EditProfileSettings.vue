@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="editProfileSettingsContainer">
     <div class="pageHeader grey lighten-2">
       <div class="container">
         <h3 class="bold">
@@ -322,6 +322,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.editProfileSettingsContainer {
+  margin-bottom: 50px;
+}
 .pageHeader {
   padding: 20px;
 }

@@ -30,6 +30,12 @@
               this.$store.state.user.email
             }}</span></a
           >
+          <router-link
+            :to="{ name: 'EditProfile' }"
+            class="btn-floating btn-medium waves-effect waves-light editProfile blue"
+          >
+            <i class="material-icons">edit</i>
+          </router-link>
         </div>
       </li>
       <li>
@@ -151,5 +157,13 @@ nav {
 }
 .background img {
   width: 100%;
+}
+.editProfile {
+  width: 50px;
+  height: 50px !important;
+  line-height: 65px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
 }
 </style>
