@@ -5,7 +5,7 @@
     <Loading v-if="isLoading" />
 
     <div class="container" v-if="!isLoading">
-      <h4 class="bold">Most ordered products</h4>
+      <h4 class="bold">Some available drugs</h4>
       <div class="row" v-if="drugs">
         <div
           class="col m3 s12"
