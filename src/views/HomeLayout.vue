@@ -1,15 +1,17 @@
 <template>
   <div class="homeLayout">
-    <div
-      class="fixed-action-btn"
-      v-if="loggedInUser.type == 'Courier' || loggedInUser.type == 'Normal'"
-    >
-      <router-link
-        class="btn-floating btn-large red"
-        :to="{ name: 'AddListing' }"
+    <div v-if="loggedInUser">
+      <div
+        class="fixed-action-btn"
+        v-if="loggedInUser.type == 'Courier' || loggedInUser.type == 'Normal'"
       >
-        <i class="large material-icons">add</i>
-      </router-link>
+        <router-link
+          class="btn-floating btn-large red"
+          :to="{ name: 'AddListing' }"
+        >
+          <i class="large material-icons">add</i>
+        </router-link>
+      </div>
     </div>
 
     <Navbar />
