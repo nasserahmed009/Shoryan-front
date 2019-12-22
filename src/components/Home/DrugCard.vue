@@ -3,18 +3,7 @@
     <!-- <div class="col s12 m4 l3"> -->
     <div class="card">
       <div class="card-image">
-        <img
-          v-if="drug.imgsUrls && drug.imgsUrls[0]"
-          :src="drug.imgsUrls[0]"
-          width="200"
-          height="250"
-        />
-        <img
-          v-if="!(drug.imgsUrls && drug.imgsUrls[0])"
-          :src="'https://i.imgur.com/QFH6uL3.png'"
-          width="200"
-          height="250"
-        />
+        <img :src="drugImgUrl" width="200" height="250" />
       </div>
       <div class="card-content">
         <!-- <router-link :to="{ name: 'SingleItem', params: { itemId: item.id } }"> -->
@@ -43,6 +32,13 @@ export default {
     drug: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    drugImgUrl() {
+      if (this.drug.imgsUrls && this.drug.imgsUrls[0])
+        return `${this.$store.state.baseUrl}${this.drug.imgsUrls[0]}`;
+      else return `https://i.imgur.com/QFH6uL3.png`;
     }
   }
 };
